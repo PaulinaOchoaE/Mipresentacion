@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi presentación</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/moon.css">
+  <style>
+    .reveal h1, .reveal h2 { text-transform: none; }
+    .columnas { display: flex; gap: 40px; align-items: center; }
+    .columnas > div { flex: 1; }
+    .tarjeta {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Portada -->
+      <section data-background-gradient="linear-gradient(135deg, #6a11cb, #2575fc)">
+        <h1>Título de mi presentación</h1>
+        <h3>Subtítulo o tema</h3>
+        <p><small>Paulina Ochoa · Octubre 2026</small></p>
+      </section>
+
+      <!-- Puntos que aparecen uno por uno -->
+      <section>
+        <h2>Agenda</h2>
+        <ul>
+          <li class="fragment">Introducción</li>
+          <li class="fragment">Desarrollo</li>
+          <li class="fragment">Resultados</li>
+          <li class="fragment">Conclusiones</li>
+        </ul>
+      </section>
+
+      <!-- Dos columnas -->
+      <section>
+        <h2>Comparación</h2>
+        <div class="columnas">
+          <div class="tarjeta">
+            <h3>Antes</h3>
+            <p>Describe la situación inicial.</p>
+          </div>
+          <div class="tarjeta">
+            <h3>Después</h3>
+            <p>Describe el resultado.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diapositiva con imagen -->
+      <section>
+        <h2>Imagen</h2>
+        <img src="https://picsum.photos/600/300" alt="Imagen de ejemplo" style="border-radius:12px;">
+        <p><small>Pie de imagen</small></p>
+      </section>
+
+      <!-- Cita -->
+      <section data-background-color="#1b1b2f">
+        <blockquote>
+          Escribe aquí una frase importante de tu presentación.
+        </blockquote>
+      </section>
+
+      <!-- Cierre -->
+      <section data-background-gradient="linear-gradient(135deg, #11998e, #38ef7d)">
+        <h1>¡Gracias!</h1>
+        <p>correo@ejemplo.com</p>
+        <p><small>¿Preguntas?</small></p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide',
+      controls: true,
+      progress: true
+    });
+  </script>
+</body>
+</html>
