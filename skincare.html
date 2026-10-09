@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skincare — Seoul Market</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config={theme:{extend:{
+  colors:{
+    cream:'#F7F2EA',
+    soft:'#FBF8F3',
+    sage:'#77906E',
+    sagedk:'#4F6449',
+    blush:'#E7B9AE',
+    ink:'#2B2A26',
+    inksoft:'#5C5A52',
+    line:'rgba(43,42,38,.12)'
+  },
+  fontFamily:{
+    serif:['Fraunces','serif'],
+    sans:['"Noto Sans KR"','sans-serif']
+  },
+  keyframes:{
+    fadeUp:{'0%':{opacity:0,transform:'translateY(24px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+    grow:{'0%':{transform:'scaleX(0)'},'100%':{transform:'scaleX(1)'}},
+    pop:{'0%':{transform:'scale(0)'},'60%':{transform:'scale(1.35)'},'100%':{transform:'scale(1)'}}
+  },
+  animation:{
+    fadeUp:'fadeUp .8s cubic-bezier(.2,.7,.2,1) both',
+    grow:'grow 1s .6s ease-out both',
+    pop:'pop .35s ease-out'
+  }
+}}}
+</script>
+
+<style>
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation:none!important;transition:none!important}
+}
+
+.card{display:flex;flex-direction:column;gap:12px}
+.imgbox{background:#EFE7D8;overflow:hidden;border-radius:8px;aspect-ratio:4/5;margin-bottom:6px}
+.imgbox img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .imgbox img{transform:scale(1.05)}
+.tag{font-size:12px;color:#4F6449}
+.add{font-size:13px;color:#5C5A52;border:0;border-bottom:1px solid #5C5A52;background:transparent;cursor:pointer;padding:0;transition:all .2s}
+.add:hover{color:#2B2A26;border-bottom-color:#2B2A26}
+.add.added{color:#4F6449;border-bottom-color:#4F6449}
+.navlink{border-bottom:1px solid transparent;transition:border-color .2s}
+.navlink:hover{border-bottom-color:#000}
+.fcol a{font-size:14px;color:#5C5A52;transition:color .2s}
+.fcol a:hover{color:#2B2A26}
+
+.specs-btn{font-size:13px;color:#4F6449;background:transparent;border:0;padding:0;cursor:pointer;width:max-content;transition:color .2s}
+.specs-btn:hover{color:#2B2A26;text-decoration:underline}
+.specs-overlay{position:fixed;inset:0;z-index:100;background:rgba(43,42,38,.55);display:none;align-items:center;justify-content:center;padding:20px}
+.specs-overlay.open{display:flex}
+.specs-modal{background:#fff;border-radius:10px;max-width:760px;width:100%;max-height:90vh;overflow:auto;display:grid;grid-template-columns:1fr;animation:specsIn .3s ease-out}
+@media(min-width:700px){.specs-modal{grid-template-columns:5fr 6fr}}
+@keyframes specsIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.specs-img{background:#EFE7D8;min-height:220px}
+.specs-img img{width:100%;height:100%;object-fit:cover;display:block}
+.specs-body{padding:28px;position:relative}
+.specs-close{position:absolute;top:12px;right:14px;font-size:22px;line-height:1;background:none;border:0;cursor:pointer;color:#5C5A52}
+.specs-close:hover{color:#2B2A26}
+.specs-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px}
+.specs-table th{text-align:left;font-weight:500;color:#5C5A52;padding:9px 12px 9px 0;vertical-align:top;width:38%;border-top:1px solid rgba(43,42,38,.12)}
+.specs-table td{padding:9px 0;color:#2B2A26;border-top:1px solid rgba(43,42,38,.12)}
+.specs-cta{margin-top:20px;width:100%;background:#2B2A26;color:#F7F2EA;font-size:13.5px;padding:12px;border:0;cursor:pointer;transition:background .2s}
+.specs-cta:hover{background:#4F6449}
+</style>
+</head>
+
+<body class="bg-cream text-ink font-sans leading-relaxed antialiased selection:bg-blush">
+
+<!-- TRUST BAR -->
+<div class="bg-soft text-inksoft text-[11.5px] border-b border-line">
+  <div class="flex justify-start md:justify-center gap-10 px-8 py-2 overflow-x-auto whitespace-nowrap">
+    <span>Envío gratis desde $50.000</span>
+    <span>Ingredientes originales de Seúl</span>
+    <span>Testeado dermatológicamente</span>
+    <span>Devoluciones en 30 días</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="bg-white sticky top-0 z-50 border-b border-line">
+  <div class="max-w-[1400px] mx-auto px-5 md:px-10 h-16 md:h-[84px] flex items-center justify-between gap-8">
+
+    <a href="Home.html" class="shrink-0">
+      <img src="imagenes/SeoulMarket.png" alt="Seoul Market" class="h-12 md:h-16 w-auto object-contain">
+    </a>
+
+    <nav class="hidden md:flex flex-1 justify-center gap-11 text-base text-neutral-900">
+      <a href="Home.html" class="navlink">Inicio</a>
+      <a href="Skincare.html" class="navlink !border-black">Skincare</a>
+      <a href="makeup.html" class="navlink">Makeup</a>
+      <a href="Clothing.html" class="navlink">Clothing</a>
+      <a href="About.html" class="navlink">About</a>
+      <a href="blog.html" class="navlink">Blog</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <button id="searchBtn" aria-label="Buscar" class="p-1">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+
+      <button id="cartBtn" aria-label="Carrito" class="p-1 relative">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h15l-1.5 9h-12z"/><path d="M6 7 4.5 3H2"/><circle cx="9.5" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        <span id="cartCount" aria-live="polite" class="hidden absolute -top-1 -right-1.5 w-[15px] h-[15px] rounded-full bg-black text-white text-[9px] leading-[15px] text-center">0</span>
+      </button>
+
+      <button id="menuToggle" aria-label="Abrir menú" aria-expanded="false" class="p-1 md:hidden">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div id="searchBox" class="hidden bg-white border-t border-line">
+    <div class="max-w-[1180px] mx-auto px-8 py-4">
+      <input id="searchInput" type="text" placeholder="Buscar producto..." aria-label="Buscar producto" class="w-full border-b border-ink/30 bg-transparent py-3 text-sm outline-none focus:border-ink">
+      <p id="searchMessage" class="hidden text-sm text-inksoft mt-3"></p>
+    </div>
+  </div>
+
+  <!-- MENÚ MÓVIL -->
+  <nav id="mobileNav" class="hidden flex-col bg-white border-t border-line md:hidden text-sm">
+    <a href="Home.html" class="px-6 py-3 border-t border-line">Inicio</a>
+    <a href="Skincare.html" class="px-6 py-3 border-t border-line font-medium">Skincare</a>
+    <a href="makeup.html" class="px-6 py-3 border-t border-line">Makeup</a>
+    <a href="Clothing.html" class="px-6 py-3 border-t border-line">Clothing</a>
+    <a href="About.html" class="px-6 py-3 border-t border-line">About</a>
+    <a href="blog.html" class="px-6 py-3 border-t border-line">Blog</a>
+  </nav>
+</header>
+
+<!-- PAGE HEAD -->
+<section class="max-w-[1180px] mx-auto px-8 pt-[72px] pb-12">
+  <p class="text-[13.5px] text-sagedk mb-3.5 animate-fadeUp">스킨케어 — skincare</p>
+  <h1 class="font-serif font-medium text-[clamp(34px,4.5vw,52px)] leading-[1.1] tracking-tight animate-fadeUp [animation-delay:.12s]">
+    Rutina coreana, <em class="font-normal text-sagedk">paso a paso.</em>
+  </h1>
+  <div class="h-px bg-ink/40 mt-8 max-w-xs origin-left animate-grow"></div>
+  <p class="mt-5 max-w-[46ch] text-[16.5px] text-inksoft animate-fadeUp [animation-delay:.3s]">
+    Limpiadores, tónicos, esencias y sérums formulados en Seúl para hidratar en capas.
+  </p>
+</section>
+
+<!-- PRODUCTOS -->
+<section id="productos" class="pt-6 pb-[104px]">
+  <div class="max-w-[1180px] mx-auto px-8">
+
+    <div class="flex flex-wrap justify-between items-end gap-6 mb-12 reveal in">
+      <h2 class="font-serif font-medium text-[clamp(26px,3vw,36px)]">Todos los productos</h2>
+      <p class="text-[15px] text-inksoft max-w-[44ch]">Productos de Skincare cargados desde nuestra base de datos.</p>
+    </div>
+
+    <!-- GRID (se llena desde MySQL) -->
+    <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+      <p class="text-inksoft col-span-full">Cargando productos...</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- VENTANA DE ESPECIFICACIONES -->
+<div id="specsOverlay" class="specs-overlay" role="dialog" aria-modal="true" aria-labelledby="specsTitle">
+  <div class="specs-modal">
+    <div class="specs-img"><img id="specsImg" src="" alt=""></div>
+    <div class="specs-body">
+      <button class="specs-close" id="specsClose" aria-label="Cerrar">×</button>
+      <p id="specsTag" class="text-xs text-sagedk mb-2"></p>
+      <h2 id="specsTitle" class="font-serif text-2xl leading-tight pr-6"></h2>
+      <p id="specsPrice" class="mt-1 text-[15px]"></p>
+      <p id="specsDesc" class="mt-3 text-[14px] text-inksoft"></p>
+      <table class="specs-table"><tbody id="specsRows"></tbody></table>
+      <button class="specs-cta" id="specsAdd">Añadir al carrito</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="bg-soft py-24 text-center px-8">
+  <div>
+    <h2 class="font-serif font-medium text-[clamp(26px,3vw,34px)]">Recibe tu guía de rutina coreana</h2>
+    <p class="text-inksoft mt-3">Consejos de piel y lanzamientos nuevos, directo a tu correo — sin spam.</p>
+    <form id="newsletterForm" class="mt-7 mx-auto flex max-w-[420px] border border-ink">
+      <input id="emailInput" type="email" placeholder="tu@correo.com" aria-label="Correo electrónico" required class="flex-1 bg-transparent px-4 py-[13px] text-sm outline-none">
+      <button type="submit" class="bg-ink text-cream px-[22px] text-[13.5px] transition hover:bg-sagedk">Suscribirme</button>
+    </form>
+    <p id="newsletterMsg" aria-live="polite" class="text-[13px] text-sagedk min-h-[18px] mt-3"></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="pt-12 pb-14">
+  <div class="max-w-[1180px] mx-auto px-8 flex flex-wrap justify-between gap-8">
+    <a href="Home.html"><img src="imagenes/SeoulMarket.png" alt="Seoul Market" class="h-14 md:h-16 w-auto"></a>
+    <div class="flex flex-wrap gap-16 fcol">
+      <div>
+        <h4 class="text-[12.5px] text-inksoft tracking-wide mb-3.5">TIENDA</h4>
+        <ul class="space-y-2">
+          <li><a href="#">Limpiadores</a></li>
+          <li><a href="#">Tónicos</a></li>
+          <li><a href="#">Sérums</a></li>
+          <li><a href="#">Mascarillas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[12.5px] text-inksoft tracking-wide mb-3.5">SEOUL MARKET</h4>
+        <ul class="space-y-2">
+          <li><a href="About.html">Sobre nosotros</a></li>
+          <li><a href="blog.html">Blog de piel</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[12.5px] text-inksoft tracking-wide mb-3.5">AYUDA</h4>
+        <ul class="space-y-2">
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1180px] mx-auto px-8 mt-12 pt-6 border-t border-line flex flex-wrap justify-between gap-2.5 text-[12.5px] text-inksoft">
+    <span>© 2026 Seoul Market. Todos los derechos reservados.</span>
+    <span>Hecho con cuidado, inspirado en Seúl.</span>
+  </div>
+</footer>
+
+<script>
+/* MENÚ MÓVIL */
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+menuToggle.addEventListener('click', () => {
+  const hidden = mobileNav.classList.toggle('hidden');
+  mobileNav.classList.toggle('flex', !hidden);
+  menuToggle.setAttribute('aria-expanded', !hidden);
+});
+
+/* VARIABLES */
+const productGrid = document.getElementById('productGrid');
+const searchBtn = document.getElementById('searchBtn');
+const searchBox = document.getElementById('searchBox');
+const searchInput = document.getElementById('searchInput');
+const searchMessage = document.getElementById('searchMessage');
+const CART_KEY = 'seoulMarketCart';
+const cartBtn = document.getElementById('cartBtn');
+const cartCount = document.getElementById('cartCount');
+
+/* Si en la BD solo está el nombre del archivo, se antepone la carpeta imagenes/ */
+function rutaImagen(img){
+  if(!img) return 'imagenes/SeoulMarket.png';
+  if(/^(https?:)?\/\//.test(img) || img.includes('/')) return img;
+  return 'imagenes/' + img;
+}
+
+function formatoPrecio(n){
+  return '$' + Number(n).toLocaleString('es-MX', {minimumFractionDigits:2});
+}
+
+/* PRODUCTOS DESDE MYSQL (solo Skincare, filtrado en el PHP y en JS) */
+async function cargarProductos(){
+  try{
+    const respuesta = await fetch('api/productos.php?categoria=Skincare');
+    if(!respuesta.ok) throw new Error('No se pudieron cargar los productos');
+
+    const productos = await respuesta.json();
+
+    const skincare = productos.filter(p =>
+      String(p.categoria).trim().toLowerCase() === 'skincare'
+    );
+
+    productGrid.innerHTML = '';
+
+    if(skincare.length === 0){
+      productGrid.innerHTML = '<p class="text-inksoft col-span-full">Todavía no hay productos de Skincare.</p>';
+      return;
+    }
+
+    skincare.forEach((producto, index) => {
+      const card = document.createElement('div');
+      card.className = 'card reveal';
+      card.dataset.productId = producto.id;
+      card.dataset.specs = JSON.stringify({
+        'Marca': producto.marca || 'Seoul Market',
+        'Categoría': producto.categoria,
+        'Stock': producto.stock,
+        'Descripción': producto.descripcion,
+        'Origen': 'Seúl, Corea del Sur'
+      });
+
+      const imbox = document.createElement('div');
+      imbox.className = 'imgbox';
+      const img = document.createElement('img');
+      img.src = rutaImagen(producto.imagen);
+      img.alt = producto.nombre;
+      img.loading = 'lazy';
+      imbox.appendChild(img);
+
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = producto.marca || 'Seoul Market';
+
+      const h3 = document.createElement('h3');
+      h3.className = 'font-serif text-[19px]';
+      h3.textContent = producto.nombre;
+
+      const desc = document.createElement('p');
+      desc.className = 'text-[13.5px] text-inksoft flex-1';
+      desc.textContent = producto.descripcion || '';
+
+      const specsBtn = document.createElement('button');
+      specsBtn.className = 'specs-btn';
+      specsBtn.textContent = 'Ver especificaciones';
+
+      const fila = document.createElement('div');
+      fila.className = 'flex justify-between items-center mt-1';
+
+      const precio = document.createElement('span');
+      precio.className = 'precio text-[15px]';
+      precio.textContent = formatoPrecio(producto.precio);
+
+      const add = document.createElement('button');
+      add.className = 'add';
+      add.textContent = 'Añadir';
+      add.dataset.name = producto.nombre;
+      add.dataset.id = producto.id;
+      add.dataset.price = producto.precio;
+
+      fila.append(precio, add);
+      card.append(imbox, tag, h3, desc, specsBtn, fila);
+      productGrid.appendChild(card);
+
+      card.style.transitionDelay = (index % 3) * 0.12 + 's';
+      setTimeout(() => card.classList.add('in'), 50);
+    });
+
+    inicializarBotonesAgregar();
+    inicializarEspecificaciones();
+
+  }catch(error){
+    console.error('Error:', error);
+    productGrid.innerHTML = '<p class="text-inksoft col-span-full">No se pudieron cargar los productos.</p>';
+  }
+}
+
+function getCards(){
+  return document.querySelectorAll('#productGrid .card');
+}
+
+/* BUSCADOR */
+searchBtn.addEventListener('click', () => {
+  const hidden = searchBox.classList.toggle('hidden');
+  if(!hidden){
+    searchInput.focus();
+  }else{
+    searchInput.value = '';
+    getCards().forEach(card => { card.style.display = ''; });
+    searchMessage.classList.add('hidden');
+  }
+});
+
+searchInput.addEventListener('input', () => {
+  const search = searchInput.value.toLowerCase().trim();
+  let found = 0;
+  getCards().forEach(card => {
+    const name = card.querySelector('h3').textContent.toLowerCase();
+    const description = card.querySelector('p').textContent.toLowerCase();
+    const tag = card.querySelector('.tag').textContent.toLowerCase();
+    const match = name.includes(search) || description.includes(search) || tag.includes(search);
+    card.style.display = match ? '' : 'none';
+    if(match) found++;
+  });
+  if(search !== '' && found === 0){
+    searchMessage.textContent = 'No encontramos productos con ese nombre.';
+    searchMessage.classList.remove('hidden');
+  }else{
+    searchMessage.classList.add('hidden');
+  }
+});
+
+/* CARRITO */
+function getCart(){
+  try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch(e){ return []; }
+}
+function saveCart(cart){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+function updateCartCount(){
+  const total = getCart().reduce((sum, item) => sum + (item.quantity || 1), 0);
+  if(total > 0){
+    cartCount.textContent = total;
+    cartCount.classList.remove('hidden');
+  }else{
+    cartCount.classList.add('hidden');
+  }
+}
+updateCartCount();
+
+function inicializarBotonesAgregar(){
+  getCards().forEach(card => {
+    const btn = card.querySelector('.add');
+    if(!btn) return;
+
+    btn.addEventListener('click', () => {
+      const productId = btn.dataset.id;
+      const price = Number(btn.dataset.price);
+      const cart = getCart();
+      const existing = cart.find(item => item.id === productId);
+
+      if(existing){
+        existing.quantity = (existing.quantity || 1) + 1;
+      }else{
+        cart.push({
+          id: productId,
+          name: btn.dataset.name,
+          price: price,
+          priceText: card.querySelector('.precio').textContent.trim(),
+          image: card.querySelector('img').src,
+          quantity: 1,
+          category: 'Skincare',
+          cur: 'LOC',
+          page: 'Skincare.html'
+        });
+      }
+
+      saveCart(cart);
+      updateCartCount();
+
+      cartCount.classList.remove('animate-pop');
+      void cartCount.offsetWidth;
+      cartCount.classList.add('animate-pop');
+
+      btn.textContent = 'Añadido ✓';
+      btn.classList.add('added');
+      setTimeout(() => {
+        btn.textContent = 'Añadir';
+        btn.classList.remove('added');
+      }, 1500);
+    });
+  });
+}
+
+cartBtn.addEventListener('click', () => { window.location.href = 'carrito.html'; });
+
+/* ESPECIFICACIONES */
+let currentCard = null;
+let lastBtn = null;
+
+function inicializarEspecificaciones(){
+  document.querySelectorAll('.specs-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      lastBtn = btn;
+      abrirEspecificaciones(btn.closest('.card'));
+    });
+  });
+}
+
+function abrirEspecificaciones(card){
+  currentCard = card;
+  let specs = {};
+  try{ specs = JSON.parse(card.dataset.specs || '{}'); }catch(e){}
+
+  document.getElementById('specsTag').textContent = card.querySelector('.tag').textContent;
+  document.getElementById('specsTitle').textContent = card.querySelector('h3').textContent;
+  document.getElementById('specsPrice').textContent = card.querySelector('.precio').textContent;
+  document.getElementById('specsDesc').textContent = card.querySelector('p').textContent;
+
+  const img = card.querySelector('img');
+  document.getElementById('specsImg').src = img.src;
+  document.getElementById('specsImg').alt = img.alt;
+
+  const rows = document.getElementById('specsRows');
+  rows.innerHTML = '';
+  Object.entries(specs).forEach(([key, value]) => {
+    const tr = document.createElement('tr');
+    const th = document.createElement('th'); th.textContent = key;
+    const td = document.createElement('td'); td.textContent = value;
+    tr.append(th, td);
+    rows.append(tr);
+  });
+
+  document.getElementById('specsOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('specsClose').focus();
+}
+
+function cerrarEspecificaciones(){
+  document.getElementById('specsOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  if(lastBtn) lastBtn.focus();
+}
+
+document.getElementById('specsClose').addEventListener('click', cerrarEspecificaciones);
+document.getElementById('specsOverlay').addEventListener('click', e => {
+  if(e.target === e.currentTarget) cerrarEspecificaciones();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document.getElementById('specsOverlay').classList.contains('open')){
+    cerrarEspecificaciones();
+  }
+});
+
+document.getElementById('specsAdd').addEventListener('click', () => {
+  if(!currentCard) return;
+  currentCard.querySelector('.add').click();
+  const b = document.getElementById('specsAdd');
+  b.textContent = 'Añadido ✓';
+  setTimeout(() => { b.textContent = 'Añadir al carrito'; }, 1500);
+});
+
+/* NEWSLETTER */
+document.getElementById('newsletterForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const m = document.getElementById('newsletterMsg');
+  m.textContent = '¡Gracias! Revisa tu correo pronto.';
+  m.classList.remove('animate-fadeUp');
+  void m.offsetWidth;
+  m.classList.add('animate-fadeUp');
+  e.target.reset();
+});
+
+/* CARGAR PRODUCTOS */
+cargarProductos();
+</script>
+
+</body>
+</html>

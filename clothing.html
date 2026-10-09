@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clothing — Seoul Market</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config={theme:{extend:{
+  colors:{
+    cream:'#F7F2EA',
+    soft:'#FBF8F3',
+    sage:'#77906E',
+    sagedk:'#4F6449',
+    blush:'#E7B9AE',
+    ink:'#2B2A26',
+    inksoft:'#5C5A52',
+    line:'rgba(43,42,38,.12)'
+  },
+  fontFamily:{
+    serif:['Fraunces','serif'],
+    sans:['"Noto Sans KR"','sans-serif']
+  },
+  keyframes:{
+    fadeUp:{'0%':{opacity:0,transform:'translateY(24px)'},'100%':{opacity:1,transform:'translateY(0)'}},
+    grow:{'0%':{transform:'scaleX(0)'},'100%':{transform:'scaleX(1)'}},
+    pop:{'0%':{transform:'scale(0)'},'60%':{transform:'scale(1.35)'},'100%':{transform:'scale(1)'}}
+  },
+  animation:{
+    fadeUp:'fadeUp .8s cubic-bezier(.2,.7,.2,1) both',
+    grow:'grow 1s .6s ease-out both',
+    pop:'pop .35s ease-out'
+  }
+}}}
+</script>
+
+<style>
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation:none!important;transition:none!important}
+}
+
+/* Componentes */
+.chip{padding:8px 18px;border:1px solid rgba(43,42,38,.12);border-radius:9999px;font-size:13px;color:#5C5A52;background:transparent;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:#2B2A26;color:#2B2A26}
+.chip.active{background:#2B2A26;color:#F7F2EA;border-color:#2B2A26}
+.card{display:flex;flex-direction:column;gap:12px}
+.imgbox{background:#EFE7D8;overflow:hidden;border-radius:8px;aspect-ratio:4/5;margin-bottom:6px}
+.imgbox img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .imgbox img{transform:scale(1.05)}
+.tag{font-size:12px;color:#4F6449}
+.add{font-size:13px;color:#5C5A52;border:0;border-bottom:1px solid #5C5A52;background:transparent;cursor:pointer;padding:0;transition:all .2s}
+.add:hover{color:#2B2A26;border-bottom-color:#2B2A26}
+.add.added{color:#4F6449;border-bottom-color:#4F6449}
+.navlink{border-bottom:1px solid transparent;transition:border-color .2s}
+.navlink:hover{border-bottom-color:#000}
+.fcol a{font-size:14px;color:#5C5A52;transition:color .2s}
+.fcol a:hover{color:#2B2A26}
+
+/* Especificaciones */
+.specs-btn{font-size:13px;color:#4F6449;background:transparent;border:0;padding:0;cursor:pointer;width:max-content;transition:color .2s}
+.specs-btn:hover{color:#2B2A26;text-decoration:underline}
+.specs-overlay{position:fixed;inset:0;z-index:100;background:rgba(43,42,38,.55);display:none;align-items:center;justify-content:center;padding:20px}
+.specs-overlay.open{display:flex}
+.specs-modal{background:#fff;border-radius:10px;max-width:760px;width:100%;max-height:90vh;overflow:auto;display:grid;grid-template-columns:1fr;animation:specsIn .3s ease-out}
+@media(min-width:700px){.specs-modal{grid-template-columns:5fr 6fr}}
+@keyframes specsIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.specs-img{background:#EFE7D8;min-height:220px}
+.specs-img img{width:100%;height:100%;object-fit:cover;display:block}
+.specs-body{padding:28px;position:relative}
+.specs-close{position:absolute;top:12px;right:14px;font-size:22px;line-height:1;background:none;border:0;cursor:pointer;color:#5C5A52}
+.specs-close:hover{color:#2B2A26}
+.specs-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px}
+.specs-table th{text-align:left;font-weight:500;color:#5C5A52;padding:9px 12px 9px 0;vertical-align:top;width:38%;border-top:1px solid rgba(43,42,38,.12)}
+.specs-table td{padding:9px 0;color:#2B2A26;border-top:1px solid rgba(43,42,38,.12)}
+.specs-cta{margin-top:20px;width:100%;background:#2B2A26;color:#F7F2EA;font-size:13.5px;padding:12px;border:0;cursor:pointer;transition:background .2s}
+.specs-cta:hover{background:#4F6449}
+</style>
+</head>
+
+<body class="bg-cream text-ink font-sans leading-relaxed antialiased selection:bg-blush">
+
+<!-- Trust bar -->
+<div class="bg-soft text-inksoft text-[11.5px] border-b border-line">
+  <div class="flex justify-start md:justify-center gap-10 px-8 py-2 overflow-x-auto whitespace-nowrap">
+    <span>Envío gratis desde $50.000</span>
+    <span>Ingredientes originales de Seúl</span>
+    <span>Testeado dermatológicamente</span>
+    <span>Devoluciones en 30 días</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="bg-white sticky top-0 z-50 border-b border-line">
+
+  <div class="max-w-[1400px] mx-auto px-5 md:px-10 h-16 md:h-[84px] flex items-center justify-between gap-8">
+
+    <a href="Home.html" class="shrink-0">
+      <img src="imagenes/SeoulMarket.png" alt="Seoul Market" class="h-12 md:h-16 w-auto object-contain">
+    </a>
+
+    <nav class="hidden md:flex flex-1 justify-center gap-11 text-base text-neutral-900">
+      <a href="Home.html" class="navlink">Inicio</a>
+      <a href="Skincare.html" class="navlink">Skincare</a>
+      <a href="makeup.html" class="navlink">Makeup</a>
+      <a href="Clothing.html" class="navlink !border-black">Clothing</a>
+      <a href="About.html" class="navlink">About</a>
+      <a href="blog.html" class="navlink">Blog</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+
+      <!-- Buscar -->
+      <button aria-label="Buscar" class="p-1">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+
+      <!-- Carrito -->
+      <button id="cartBtn" aria-label="Carrito" class="p-1 relative">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h15l-1.5 9h-12z"/><path d="M6 7 4.5 3H2"/><circle cx="9.5" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        <span id="cartCount" aria-live="polite" class="hidden absolute -top-1 -right-1.5 w-[15px] h-[15px] rounded-full bg-black text-white text-[9px] leading-[15px] text-center">0</span>
+      </button>
+
+      <!-- Menú móvil -->
+      <button id="menuToggle" aria-label="Abrir menú" aria-expanded="false" class="p-1 md:hidden">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav id="mobileNav" class="hidden flex-col bg-white border-t border-line md:hidden text-sm">
+    <a href="Home.html" class="px-6 py-3 border-t border-line">Inicio</a>
+    <a href="Skincare.html" class="px-6 py-3 border-t border-line">Skincare</a>
+    <a href="makeup.html" class="px-6 py-3 border-t border-line">Makeup</a>
+    <a href="Clothing.html" class="px-6 py-3 border-t border-line font-medium">Clothing</a>
+    <a href="About.html" class="px-6 py-3 border-t border-line">About</a>
+    <a href="blog.html" class="px-6 py-3 border-t border-line">Blog</a>
+  </nav>
+
+</header>
+
+<!-- Page head -->
+<section class="max-w-[1180px] mx-auto px-8 pt-[72px] pb-12">
+  <p class="text-[13.5px] text-sagedk mb-3.5 animate-fadeUp">패션 — clothing</p>
+  <h1 class="font-serif font-medium text-[clamp(34px,4.5vw,52px)] leading-[1.1] tracking-tight animate-fadeUp" style="animation-delay:.12s">
+    Moda de Seúl, <em class="font-normal text-sagedk">simple y actual.</em>
+  </h1>
+  <div class="h-px bg-ink/40 mt-8 max-w-xs origin-left animate-grow"></div>
+  <p class="mt-5 max-w-[46ch] text-[16.5px] text-inksoft animate-fadeUp" style="animation-delay:.3s">
+    Básicos y prendas de temporada con el estilo minimalista de las calles de Seúl.
+  </p>
+</section>
+
+<!-- Productos -->
+<section id="productos" class="pt-6 pb-[104px]">
+  <div class="max-w-[1180px] mx-auto px-8">
+
+    <div class="flex flex-wrap justify-between items-end gap-6 mb-12 reveal">
+      <h2 class="font-serif font-medium text-[clamp(26px,3vw,36px)]">Nueva colección</h2>
+      <p class="text-[15px] text-inksoft max-w-[44ch]">Cortes relajados y tonos neutros.</p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-2.5 mb-8 reveal" role="group" aria-label="Filtrar productos">
+      <button class="chip active" data-concern="todos">Todos</button>
+      <button class="chip" data-concern="tops">Tops</button>
+      <button class="chip" data-concern="abajo">Pantalones y faldas</button>
+      <button class="chip" data-concern="abrigos">Abrigos</button>
+    </div>
+
+    <!--
+      ESPECIFICACIONES: cada tarjeta tiene data-specs con un JSON
+      {"Etiqueta":"Valor", ...}. Edita, agrega o quita filas libremente.
+      Evita usar comillas simples (') dentro de los valores.
+    -->
+
+    <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+
+      <!-- Producto 1 -->
+      <div class="card reveal" data-concern="abrigos"
+           data-specs='{"Tallas":"S, M, L, XL","Material":"Punto suave de algodón y acrílico","Colores":"Crema, verde salvia, gris","Corte":"Relajado, ligeramente oversize","Largo":"Talla M: 62 cm","Cuidado":"Lavar a mano o ciclo delicado, secar en plano","Temporada":"Otoño / Invierno","Origen":"Seúl, Corea del Sur"}'>
+        <div class="imgbox">
+          <img src="https://i.pinimg.com/736x/a3/8a/99/a38a9985e176d98d1790e7d23c2416b3.jpg" alt="Cárdigan Seúl" loading="lazy">
+        </div>
+        <span class="tag">Tejido suave</span>
+        <h3 class="font-serif text-[19px]">Cárdigan Seúl</h3>
+        <p class="text-[13.5px] text-inksoft flex-1">Punto ligero para combinar con todo.</p>
+        <button class="specs-btn">Ver especificaciones</button>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-[15px]">$59.900</span>
+          <button class="add" data-name="Cárdigan Seúl">Añadir</button>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="card reveal" data-concern="tops"
+           data-specs='{"Tallas":"S, M, L","Material":"Mezcla de lino y algodón","Colores":"Blanco, beige, celeste","Corte":"Holgado","Largo":"Talla M: 66 cm","Cuidado":"Lavar a máquina en frío, planchar a baja temperatura","Temporada":"Primavera / Verano","Origen":"Seúl, Corea del Sur"}'>
+        <div class="imgbox">
+          <img src="https://i.pinimg.com/1200x/d7/c3/77/d7c3776c3422679999d35d0ea3c6645c.jpg" alt="Blusa Minimal" loading="lazy">
+        </div>
+        <span class="tag">Lino mezcla</span>
+        <h3 class="font-serif text-[19px]">Blusa Minimal</h3>
+        <p class="text-[13.5px] text-inksoft flex-1">Corte holgado y tacto fresco.</p>
+        <button class="specs-btn">Ver especificaciones</button>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-[15px]">$38.900</span>
+          <button class="add" data-name="Blusa Minimal">Añadir</button>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="card reveal" data-concern="tops"
+           data-specs='{"Tallas":"S, M, L, XL","Material":"100% algodón","Colores":"Blanco, negro, gris claro","Corte":"Oversize","Largo":"Talla M: 70 cm","Cuidado":"Lavar a máquina en frío, no usar secadora","Temporada":"Todo el año","Origen":"Seúl, Corea del Sur"}'>
+        <div class="imgbox">
+          <img src="https://i.pinimg.com/736x/ee/68/43/ee68436625dbd2f5b1cb21b593be4b10.jpg" alt="Camiseta Oversize" loading="lazy">
+        </div>
+        <span class="tag">Algodón 100%</span>
+        <h3 class="font-serif text-[19px]">Camiseta Oversize</h3>
+        <p class="text-[13.5px] text-inksoft flex-1">Básico de corte amplio, imprescindible.</p>
+        <button class="specs-btn">Ver especificaciones</button>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-[15px]">$24.900</span>
+          <button class="add" data-name="Camiseta Oversize">Añadir</button>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="card reveal" data-concern="abajo"
+           data-specs='{"Tallas":"S, M, L","Material":"Poliéster fluido con forro interior","Colores":"Negro, beige, verde oliva","Corte":"Plisada, línea A","Largo":"Midi, talla M: 78 cm","Cintura":"Elástica, cómoda","Cuidado":"Lavar a mano, no retorcer, secar colgada","Origen":"Seúl, Corea del Sur"}'>
+        <div class="imgbox">
+          <img src="https://i.pinimg.com/736x/6a/26/ac/6a26aca860e328fa7f362de7d235c087.jpg" alt="Falda Plisada Midi" loading="lazy">
+        </div>
+        <span class="tag">Tela fluida</span>
+        <h3 class="font-serif text-[19px]">Falda Plisada Midi</h3>
+        <p class="text-[13.5px] text-inksoft flex-1">Movimiento y caída elegante.</p>
+        <button class="specs-btn">Ver especificaciones</button>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-[15px]">$42.500</span>
+          <button class="add" data-name="Falda Plisada Midi">Añadir</button>
+        </div>
+      </div>
+
+      <!-- Producto 5 -->
+      <div class="card reveal" data-concern="abajo"
+           data-specs='{"Tallas":"S, M, L, XL","Material":"Mezcla de algodón y poliéster","Colores":"Negro, gris, beige","Corte":"Wide leg, silueta amplia","Tiro":"Alto","Largo":"Talla M: 100 cm","Cierre":"Cremallera y botón","Cuidado":"Lavar a máquina en frío, planchar al revés","Origen":"Seúl, Corea del Sur"}'>
+        <div class="imgbox">
+          <img src="https://i.pinimg.com/736x/29/40/e3/2940e38a2ee750ba6abb1c395790f3be.jpg" alt="Pantalón Wide Leg" loading="lazy">
+        </div>
+        <span class="tag">Tiro alto</span>
+        <h3 class="font-serif text-[19px]">Pantalón Wide Leg</h3>
+        <p class="text-[13.5px] text-inksoft flex-1">Silueta amplia, cómoda todo el día.</p>
+        <button class="specs-btn">Ver especificaciones</button>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-[15px]">$49.900</span>
+          <button class="add" data-name="Pantalón Wide Leg">Añadir</button>
+        </div>
+      </div>
+
+      <!-- Producto 6 -->
+      <div class="card reveal" data-concern="abrigos"
+           data-specs='{"Tallas":"S, M, L, XL","Material":"Nailon con acabado mate","Forro":"Poliéster ligero","Colores":"Negro, verde militar, beige","Corte":"Bomber, ajuste regular","Cierre":"Cremallera frontal, puños elásticos","Cuidado":"Lavar a mano o en seco, no usar secadora","Temporada":"Entretiempo","Origen":"Seúl, Corea del Sur"}'>
+        <div class="imgbox">
+          <img src="https://i.pinimg.com/736x/82/0c/e3/820ce37a76721357bc1d7a63c0d3a715.jpg" alt="Chaqueta Bomber Han" loading="lazy">
+        </div>
+        <span class="tag">Acabado mate</span>
+        <h3 class="font-serif text-[19px]">Chaqueta Bomber Han</h3>
+        <p class="text-[13.5px] text-inksoft flex-1">Ligera, ideal para entretiempo.</p>
+        <button class="specs-btn">Ver especificaciones</button>
+        <div class="flex justify-between items-center mt-1">
+          <span class="text-[15px]">$79.900</span>
+          <button class="add" data-name="Chaqueta Bomber Han">Añadir</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Ventana de especificaciones -->
+<div id="specsOverlay" class="specs-overlay" role="dialog" aria-modal="true" aria-labelledby="specsTitle">
+  <div class="specs-modal">
+    <div class="specs-img"><img id="specsImg" src="" alt=""></div>
+    <div class="specs-body">
+      <button class="specs-close" id="specsClose" aria-label="Cerrar">×</button>
+      <p id="specsTag" class="text-xs text-sagedk mb-2"></p>
+      <h2 id="specsTitle" class="font-serif text-2xl leading-tight pr-6"></h2>
+      <p id="specsPrice" class="mt-1 text-[15px]"></p>
+      <p id="specsDesc" class="mt-3 text-[14px] text-inksoft"></p>
+      <table class="specs-table"><tbody id="specsRows"></tbody></table>
+      <button class="specs-cta" id="specsAdd">Añadir al carrito</button>
+    </div>
+  </div>
+</div>
+
+<!-- Newsletter -->
+<section class="bg-soft py-24 text-center px-8">
+  <div class="reveal">
+    <h2 class="font-serif font-medium text-[clamp(26px,3vw,34px)]">Recibe tu guía de rutina coreana</h2>
+    <p class="text-inksoft mt-3">Consejos de piel y lanzamientos nuevos, directo a tu correo — sin spam.</p>
+    <form id="newsletterForm" class="mt-7 mx-auto flex max-w-[420px] border border-ink">
+      <input id="emailInput" type="email" placeholder="tu@correo.com" aria-label="Correo electrónico" required class="flex-1 bg-transparent px-4 py-[13px] text-sm outline-none">
+      <button type="submit" class="bg-ink text-cream px-[22px] text-[13.5px] transition hover:bg-sagedk">Suscribirme</button>
+    </form>
+    <p id="newsletterMsg" aria-live="polite" class="text-[13px] text-sagedk min-h-[18px] mt-3"></p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-12 pb-14">
+  <div class="max-w-[1180px] mx-auto px-8 flex flex-wrap justify-between gap-8">
+    <a href="Home.html"><img src="imagenes/SeoulMarket.png" alt="Seoul Market" class="h-14 md:h-16 w-auto"></a>
+    <div class="flex flex-wrap gap-16 fcol">
+      <div>
+        <h4 class="text-[12.5px] text-inksoft tracking-wide mb-3.5">TIENDA</h4>
+        <ul class="space-y-2">
+          <li><a href="Skincare.html">Skincare</a></li>
+          <li><a href="makeup.html">Makeup</a></li>
+          <li><a href="Clothing.html">Clothing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[12.5px] text-inksoft tracking-wide mb-3.5">SEOUL MARKET</h4>
+        <ul class="space-y-2">
+          <li><a href="About.html">Sobre nosotros</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[12.5px] text-inksoft tracking-wide mb-3.5">AYUDA</h4>
+        <ul class="space-y-2">
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1180px] mx-auto px-8 mt-12 pt-6 border-t border-line flex flex-wrap justify-between gap-2.5 text-[12.5px] text-inksoft">
+    <span>© 2026 Seoul Market. Todos los derechos reservados.</span>
+    <span>Hecho con cuidado, inspirado en Seúl.</span>
+  </div>
+</footer>
+
+<script>
+
+/* MENÚ MÓVIL */
+const menuToggle = document.getElementById('menuToggle');
+const mobileNav = document.getElementById('mobileNav');
+
+menuToggle.addEventListener('click', () => {
+  const hidden = mobileNav.classList.toggle('hidden');
+  mobileNav.classList.toggle('flex', !hidden);
+  menuToggle.setAttribute('aria-expanded', !hidden);
+});
+
+
+/* APARICIÓN AL HACER SCROLL */
+const io = new IntersectionObserver(
+  es => es.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  }),
+  { threshold:.12 }
+);
+
+document.querySelectorAll('.reveal').forEach(el => {
+  if(el.classList.contains('card')){
+    const i = [...el.parentNode.children].indexOf(el);
+    el.style.transitionDelay = (i % 3) * 0.12 + 's';
+  }
+  io.observe(el);
+});
+
+
+/* FILTROS */
+const chips = document.querySelectorAll('.chip');
+const cards = document.querySelectorAll('#productGrid .card');
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    const f = chip.dataset.concern;
+    let n = 0;
+    cards.forEach(card => {
+      const show = f === 'todos' || card.dataset.concern === f;
+      card.style.display = show ? '' : 'none';
+      if(show){
+        card.classList.add('in');
+        card.style.transitionDelay = '0s';
+        card.classList.remove('animate-fadeUp');
+        void card.offsetWidth;
+        card.style.animationDelay = (n++ * 0.08) + 's';
+        card.classList.add('animate-fadeUp');
+      }
+    });
+  });
+});
+
+
+/* CARRITO */
+const CART_KEY = 'seoulMarketCart';
+const cartBtn = document.getElementById('cartBtn');
+const cartCount = document.getElementById('cartCount');
+
+function getCart(){
+  return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+}
+
+function saveCart(cart){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function updateCartCount(){
+  const cart = getCart();
+  const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  if(total > 0){
+    cartCount.textContent = total;
+    cartCount.classList.remove('hidden');
+  }else{
+    cartCount.classList.add('hidden');
+  }
+}
+
+updateCartCount();
+
+
+/* BOTONES "AÑADIR" */
+document.querySelectorAll('.add').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.card');
+    const name = btn.dataset.name;
+    const priceElement = card.querySelector('.flex span');
+    const priceText = priceElement ? priceElement.textContent.trim() : '$0';
+
+    /* "$59.900" -> 59900 (se quitan los puntos de miles) */
+    const price = Number(
+      priceText.replace('$', '').replace(/\./g, '').replace(',', '.').replace(/\s/g, '')
+    );
+
+    const image = card.querySelector('img').src;
+    const cart = getCart();
+    const existing = cart.find(item => item.name === name);
+
+    if(existing){
+      existing.quantity = (existing.quantity || 1) + 1;
+    }else{
+      cart.push({
+        id: name,
+        name: name,
+        price: price,
+        priceText: priceText,
+        image: image,
+        quantity: 1,
+        category: 'Clothing',
+        cur: 'LOC',
+        page: 'Clothing.html'
+      });
+    }
+
+    saveCart(cart);
+    updateCartCount();
+
+    cartCount.classList.remove('animate-pop');
+    void cartCount.offsetWidth;
+    cartCount.classList.add('animate-pop');
+
+    btn.textContent = 'Añadido ✓';
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.textContent = 'Añadir';
+      btn.classList.remove('added');
+    }, 1500);
+  });
+});
+
+
+/* ABRIR CARRITO */
+cartBtn.addEventListener('click', () => {
+  window.location.href = 'carrito.html';
+});
+
+
+/* ESPECIFICACIONES */
+(function(){
+  const ov = document.getElementById('specsOverlay');
+  const $ = id => document.getElementById(id);
+  let currentCard = null;
+  let lastBtn = null;
+
+  function openSpecs(card){
+    currentCard = card;
+    let specs = {};
+    try{ specs = JSON.parse(card.dataset.specs || '{}'); }catch(e){}
+
+    $('specsTag').textContent = card.querySelector('.tag').textContent;
+    $('specsTitle').textContent = card.querySelector('h3').textContent;
+    $('specsPrice').textContent = card.querySelector('.flex span').textContent;
+    $('specsDesc').textContent = card.querySelector('p').textContent;
+
+    const img = card.querySelector('img');
+    $('specsImg').src = img.src;
+    $('specsImg').alt = img.alt;
+
+    const rows = $('specsRows');
+    rows.innerHTML = '';
+    Object.entries(specs).forEach(([k,v]) => {
+      const tr = document.createElement('tr');
+      const th = document.createElement('th'); th.textContent = k;
+      const td = document.createElement('td'); td.textContent = v;
+      tr.append(th, td);
+      rows.append(tr);
+    });
+
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    $('specsClose').focus();
+  }
+
+  function closeSpecs(){
+    ov.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastBtn) lastBtn.focus();
+  }
+
+  document.querySelectorAll('.specs-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      lastBtn = btn;
+      openSpecs(btn.closest('.card'));
+    });
+  });
+
+  $('specsClose').addEventListener('click', closeSpecs);
+  ov.addEventListener('click', e => { if(e.target === ov) closeSpecs(); });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && ov.classList.contains('open')) closeSpecs();
+  });
+
+  /* Botón "Añadir al carrito" dentro de la ventana: reutiliza el botón de la tarjeta */
+  $('specsAdd').addEventListener('click', () => {
+    if(!currentCard) return;
+    currentCard.querySelector('.add').click();
+    const b = $('specsAdd');
+    b.textContent = 'Añadido ✓';
+    setTimeout(() => { b.textContent = 'Añadir al carrito'; }, 1500);
+  });
+})();
+
+
+/* NEWSLETTER */
+document.getElementById('newsletterForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const m = document.getElementById('newsletterMsg');
+  m.textContent = '¡Gracias! Revisa tu correo pronto.';
+  m.classList.remove('animate-fadeUp');
+  void m.offsetWidth;
+  m.classList.add('animate-fadeUp');
+  e.target.reset();
+});
+
+</script>
+
+</body>
+</html>

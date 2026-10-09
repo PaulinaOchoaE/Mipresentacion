@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Seoul Market</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Leaflet -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin=""
+>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin=""
+></script>
+
+<script>
+tailwind.config={theme:{extend:{
+  colors:{
+    cream:'#F7F2EA',
+    soft:'#FBF8F3',
+    sage:'#77906E',
+    sagedk:'#4F6449',
+    blush:'#E7B9AE',
+    ink:'#2B2A26',
+    inksoft:'#5C5A52',
+    line:'rgba(43,42,38,.12)'
+  },
+
+  fontFamily:{
+    serif:['Fraunces','serif'],
+    sans:['"Noto Sans KR"','sans-serif']
+  },
+
+  keyframes:{
+    fadeUp:{
+      '0%':{
+        opacity:0,
+        transform:'translateY(24px)'
+      },
+      '100%':{
+        opacity:1,
+        transform:'translateY(0)'
+      }
+    },
+
+    float:{
+      '0%,100%':{
+        transform:'translateY(0)'
+      },
+      '50%':{
+        transform:'translateY(-10px)'
+      }
+    },
+
+    grow:{
+      '0%':{
+        transform:'scaleX(0)'
+      },
+      '100%':{
+        transform:'scaleX(1)'
+      }
+    }
+  },
+
+  animation:{
+    fadeUp:'fadeUp .8s cubic-bezier(.2,.7,.2,1) both',
+    float:'float 6s ease-in-out infinite',
+    grow:'grow 1s .6s ease-out both'
+  }
+}}
+}
+</script>
+
+<style>
+
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:
+    opacity .8s ease,
+    transform .8s cubic-bezier(.2,.7,.2,1)
+}
+
+.reveal.in{
+  opacity:1;
+  transform:none
+}
+
+@media (prefers-reduced-motion:reduce){
+
+  .reveal{
+    opacity:1;
+    transform:none;
+    transition:none
+  }
+
+  *{
+    animation:none!important;
+    transition:none!important
+  }
+
+}
+
+
+/* ============================
+   MAPA
+============================ */
+
+#map{
+  width:100%;
+  height:450px;
+  min-height:450px;
+  border-radius:8px;
+  overflow:hidden;
+  position:relative;
+}
+
+.leaflet-container{
+  width:100%;
+  height:100%;
+  font-family:"Noto Sans KR", sans-serif;
+}
+
+.location-status{
+  min-height:24px;
+}
+
+</style>
+</head>
+
+
+<body class="bg-cream text-ink font-sans leading-relaxed antialiased selection:bg-blush">
+
+
+<!-- Trust bar -->
+
+<div class="bg-soft text-inksoft text-[11.5px] border-b border-line">
+
+  <div class="flex justify-start md:justify-center gap-10 px-8 py-2 overflow-x-auto whitespace-nowrap">
+
+    <span>Envío gratis desde $50.000</span>
+    <span>Ingredientes originales de Seúl</span>
+    <span>Testeado dermatológicamente</span>
+    <span>Devoluciones en 30 días</span>
+
+  </div>
+
+</div>
+
+
+<!-- Header -->
+
+<header class="bg-white sticky top-0 z-50 border-b border-line">
+
+  <div class="max-w-[1400px] mx-auto px-5 md:px-10 h-16 md:h-[84px] flex items-center justify-between gap-8">
+
+    <a href="Home.html" class="shrink-0">
+
+      <img
+        src="imagenes/SeoulMarket.png"
+        alt="Seoul Market"
+        class="h-12 md:h-16 w-auto object-contain"
+      >
+
+    </a>
+
+
+    <nav class="hidden md:flex flex-1 justify-center gap-11 text-base text-neutral-900">
+
+      <a
+        href="Home.html"
+        class="border-b border-transparent hover:border-black transition"
+      >
+        Inicio
+      </a>
+
+      <a
+        href="Skincare.html"
+        class="border-b border-transparent hover:border-black transition"
+      >
+        Skincare
+      </a>
+
+      <a
+        href="makeup.html"
+        class="border-b border-transparent hover:border-black transition"
+      >
+        Makeup
+      </a>
+
+      <a
+        href="Clothing.html"
+        class="border-b border-transparent hover:border-black transition"
+      >
+        Clothing
+      </a>
+
+      <a
+        href="About.html"
+        class="border-b border-black"
+      >
+        About
+      </a>
+
+      <a
+        href="blog.html"
+        class="border-b border-transparent hover:border-black transition"
+      >
+        Blog
+      </a>
+
+    </nav>
+
+
+    <div class="flex items-center gap-4">
+
+      <button
+        aria-label="Buscar"
+        class="p-1"
+      >
+
+        <svg
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        >
+
+          <circle
+            cx="11"
+            cy="11"
+            r="7"
+          />
+
+          <line
+            x1="21"
+            y1="21"
+            x2="16.65"
+            y2="16.65"
+          />
+
+        </svg>
+
+      </button>
+
+
+      <button
+        id="menuToggle"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        class="p-1 md:hidden"
+      >
+
+        <svg
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+        >
+
+          <line
+            x1="3"
+            y1="6"
+            x2="21"
+            y2="6"
+          />
+
+          <line
+            x1="3"
+            y1="12"
+            x2="21"
+            y2="12"
+          />
+
+          <line
+            x1="3"
+            y1="18"
+            x2="21"
+            y2="18"
+          />
+
+        </svg>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <nav
+    id="mobileNav"
+    class="hidden flex-col bg-white border-t border-line md:hidden text-sm"
+  >
+
+    <a
+      href="Home.html"
+      class="px-6 py-3 border-t border-line"
+    >
+      Inicio
+    </a>
+
+    <a
+      href="Skincare.html"
+      class="px-6 py-3 border-t border-line"
+    >
+      Skincare
+    </a>
+
+    <a
+      href="makeup.html"
+      class="px-6 py-3 border-t border-line"
+    >
+      Makeup
+    </a>
+
+    <a
+      href="Clothing.html"
+      class="px-6 py-3 border-t border-line"
+    >
+      Clothing
+    </a>
+
+    <a
+      href="About.html"
+      class="px-6 py-3 border-t border-line"
+    >
+      About
+    </a>
+
+    <a
+      href="blog.html"
+      class="px-6 py-3 border-t border-line"
+    >
+      Blog
+    </a>
+
+  </nav>
+
+</header>
+
+
+<!-- Hero -->
+
+<section class="max-w-[1180px] mx-auto px-8 pt-[72px] pb-12">
+
+  <p class="text-[13.5px] text-sagedk mb-3.5 animate-fadeUp">
+    회사 소개 — sobre nosotros
+  </p>
+
+  <h1
+    class="font-serif font-medium text-[clamp(34px,4.5vw,52px)] leading-[1.1] tracking-tight max-w-[18ch] animate-fadeUp [animation-delay:.12s]"
+  >
+
+    Un mercado de Seúl,
+    <em class="font-normal text-sagedk">
+      más cerca de ti.
+    </em>
+
+  </h1>
+
+  <div
+    class="h-px bg-ink/40 mt-8 max-w-xs origin-left animate-grow"
+  ></div>
+
+  <p
+    class="mt-5 max-w-[52ch] text-[16.5px] text-inksoft animate-fadeUp [animation-delay:.3s]"
+  >
+
+    Seoul Market nació para traer lo mejor de la belleza y la moda coreanas a quienes las aman, con productos originales y precios justos.
+
+  </p>
+
+</section>
+
+
+<!-- Quiénes somos -->
+
+<section class="max-w-[1180px] mx-auto px-8 pt-6 pb-24 grid md:grid-cols-[.9fr_1.1fr] gap-10 md:gap-16 items-center">
+
+  <div
+    class="reveal bg-[#EFE7D8] rounded-lg overflow-hidden aspect-[4/5] group"
+  >
+
+    <img
+      src="imagenes/Sobrenosotros.jpg"
+      alt="Equipo de Seoul Market seleccionando productos"
+      loading="lazy"
+      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+    >
+
+  </div>
+
+
+  <div class="reveal">
+
+    <h2
+      class="font-serif font-medium text-[clamp(26px,3vw,36px)] leading-tight"
+    >
+      Quiénes somos
+    </h2>
+
+    <p
+      class="mt-5 max-w-[52ch] text-[15.5px] text-inksoft"
+    >
+
+      Somos una tienda en línea especializada en cuidado de la piel, maquillaje y ropa de Corea del Sur. Empezamos como un grupo de amigos fascinados por los mercados de Seúl, donde cada puesto esconde una novedad.
+
+    </p>
+
+    <p
+      class="mt-5 max-w-[52ch] text-[15.5px] text-inksoft"
+    >
+
+      Hoy seleccionamos una a una las marcas y fórmulas que vendemos. Si no la usaríamos nosotros, no llega a nuestra tienda.
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- Geolocalizador -->
+
+<section class="bg-soft py-[88px]">
+
+  <div class="max-w-[1180px] mx-auto px-8">
+
+    <div
+      class="grid lg:grid-cols-[.8fr_1.2fr] gap-10 lg:gap-16 items-center"
+    >
+
+
+      <!-- Texto -->
+
+      <div class="reveal">
+
+        <p class="text-[13.5px] text-sagedk mb-3.5">
+          Ubicación — 위치
+        </p>
+
+        <h2
+          class="font-serif font-medium text-[clamp(26px,3vw,36px)] leading-tight"
+        >
+          Encuéntranos
+        </h2>
+
+        <p
+          class="mt-5 max-w-[48ch] text-[15.5px] text-inksoft"
+        >
+
+          Queremos estar cada vez más cerca de nuestra comunidad. Permite que Seoul Market conozca tu ubicación y podrás verla directamente en el mapa.
+
+        </p>
+
+
+        <button
+          id="locationBtn"
+          type="button"
+          class="mt-7 inline-flex items-center gap-2 px-6 py-3 bg-ink text-cream rounded border border-ink text-[14.5px] transition hover:bg-transparent hover:text-ink hover:-translate-y-0.5"
+        >
+
+          <svg
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+          >
+
+            <path
+              d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"
+            />
+
+            <circle
+              cx="12"
+              cy="10"
+              r="2.5"
+            />
+
+          </svg>
+
+          Usar mi ubicación
+
+        </button>
+
+
+        <p
+          id="locationStatus"
+          class="location-status mt-4 text-sm text-inksoft"
+        ></p>
+
+      </div>
+
+
+      <!-- Mapa -->
+
+      <div class="reveal [transition-delay:.15s]">
+
+        <div
+          id="map"
+          class="shadow-sm border border-line"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Qué hacemos -->
+
+<section class="bg-soft py-[88px]">
+
+  <div class="max-w-[1180px] mx-auto px-8">
+
+    <div class="mb-12 reveal">
+
+      <h2
+        class="font-serif font-medium text-[clamp(26px,3vw,36px)]"
+      >
+        A qué nos dedicamos
+      </h2>
+
+      <p
+        class="mt-3 max-w-[48ch] text-[15px] text-inksoft"
+      >
+        Importamos, seleccionamos y te acompañamos para que elijas bien.
+      </p>
+
+    </div>
+
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
+
+
+      <div
+        class="reveal group border-t border-ink pt-[18px] transition-transform duration-300 hover:-translate-y-1"
+      >
+
+        <h3
+          class="font-serif text-[19px] mb-2 group-hover:text-sagedk transition-colors"
+        >
+          Skincare
+        </h3>
+
+        <p class="text-sm text-inksoft">
+          Limpiadores, tónicos, esencias y sérums para armar una rutina coreana por capas.
+        </p>
+
+      </div>
+
+
+      <div
+        class="reveal [transition-delay:.1s] group border-t border-ink pt-[18px] transition-transform duration-300 hover:-translate-y-1"
+      >
+
+        <h3
+          class="font-serif text-[19px] mb-2 group-hover:text-sagedk transition-colors"
+        >
+          Makeup
+        </h3>
+
+        <p class="text-sm text-inksoft">
+          Bases, cushions y color de tendencia con acabados ligeros y piel luminosa.
+        </p>
+
+      </div>
+
+
+      <div
+        class="reveal [transition-delay:.2s] group border-t border-ink pt-[18px] transition-transform duration-300 hover:-translate-y-1"
+      >
+
+        <h3
+          class="font-serif text-[19px] mb-2 group-hover:text-sagedk transition-colors"
+        >
+          Clothing
+        </h3>
+
+        <p class="text-sm text-inksoft">
+          Prendas inspiradas en las calles de Seúl, pensadas para el día a día.
+        </p>
+
+      </div>
+
+
+      <div
+        class="reveal group border-t border-ink pt-[18px] transition-transform duration-300 hover:-translate-y-1"
+      >
+
+        <h3
+          class="font-serif text-[19px] mb-2 group-hover:text-sagedk transition-colors"
+        >
+          Importación directa
+        </h3>
+
+        <p class="text-sm text-inksoft">
+          Trabajamos con proveedores confiables para garantizar productos originales.
+        </p>
+
+      </div>
+
+
+      <div
+        class="reveal [transition-delay:.1s] group border-t border-ink pt-[18px] transition-transform duration-300 hover:-translate-y-1"
+      >
+
+        <h3
+          class="font-serif text-[19px] mb-2 group-hover:text-sagedk transition-colors"
+        >
+          Curaduría
+        </h3>
+
+        <p class="text-sm text-inksoft">
+          Revisamos ingredientes, opiniones y resultados antes de incorporar cada marca.
+        </p>
+
+      </div>
+
+
+      <div
+        class="reveal [transition-delay:.2s] group border-t border-ink pt-[18px] transition-transform duration-300 hover:-translate-y-1"
+      >
+
+        <h3
+          class="font-serif text-[19px] mb-2 group-hover:text-sagedk transition-colors"
+        >
+          Guía y blog
+        </h3>
+
+        <p class="text-sm text-inksoft">
+          Consejos de piel y rutinas explicadas en simple, sin tecnicismos.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Misión y visión -->
+
+<section class="bg-sagedk text-cream py-[104px]">
+
+  <div class="max-w-[1180px] mx-auto px-8 grid md:grid-cols-2 gap-10 md:gap-[72px]">
+
+    <div class="reveal">
+
+      <p class="text-[13px] text-[#CBD8C4] mb-4">
+        Misión
+      </p>
+
+      <h2
+        class="font-serif font-medium text-[clamp(26px,3.2vw,38px)] leading-[1.18]"
+      >
+        Hacer accesible la belleza coreana, con productos auténticos y honestos.
+      </h2>
+
+      <p
+        class="mt-[18px] max-w-[48ch] text-[15.5px] text-[#E4EADF]"
+      >
+        Queremos que cada persona encuentre lo que realmente necesita su piel y su estilo, con información clara, productos originales y una compra sin sorpresas.
+      </p>
+
+    </div>
+
+
+    <div class="reveal [transition-delay:.15s]">
+
+      <p class="text-[13px] text-[#CBD8C4] mb-4">
+        Visión
+      </p>
+
+      <h2
+        class="font-serif font-medium text-[clamp(26px,3.2vw,38px)] leading-[1.18]"
+      >
+        Ser la tienda de referencia en Latinoamérica para la cultura K-beauty y K-fashion.
+      </h2>
+
+      <p
+        class="mt-[18px] max-w-[48ch] text-[15.5px] text-[#E4EADF]"
+      >
+        Aspiramos a crecer junto a nuestra comunidad, ampliando el catálogo y manteniendo la cercanía y la confianza que nos definen.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Valores -->
+
+<section class="max-w-[1180px] mx-auto px-8 py-[104px]">
+
+  <h2
+    class="font-serif font-medium text-[clamp(26px,3vw,36px)] mb-12 reveal"
+  >
+    Lo que nos guía
+  </h2>
+
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+
+    <div class="reveal">
+
+      <h3 class="font-serif text-lg mb-2">
+        Autenticidad
+      </h3>
+
+      <p class="text-sm text-inksoft">
+        Solo vendemos productos originales y con origen verificable.
+      </p>
+
+    </div>
+
+
+    <div class="reveal [transition-delay:.1s]">
+
+      <h3 class="font-serif text-lg mb-2">
+        Transparencia
+      </h3>
+
+      <p class="text-sm text-inksoft">
+        Mostramos ingredientes y precios claros, sin letra chica.
+      </p>
+
+    </div>
+
+
+    <div class="reveal [transition-delay:.2s]">
+
+      <h3 class="font-serif text-lg mb-2">
+        Cuidado
+      </h3>
+
+      <p class="text-sm text-inksoft">
+        Pensamos en tu piel y en tu bolsillo antes de recomendar.
+      </p>
+
+    </div>
+
+
+    <div class="reveal [transition-delay:.3s]">
+
+      <h3 class="font-serif text-lg mb-2">
+        Comunidad
+      </h3>
+
+      <p class="text-sm text-inksoft">
+        Escuchamos tus opiniones y las usamos para mejorar.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="bg-soft py-[88px] text-center px-8">
+
+  <div class="reveal">
+
+    <h2
+      class="font-serif font-medium text-[clamp(26px,3vw,34px)]"
+    >
+      Empieza tu rutina coreana
+    </h2>
+
+    <p
+      class="text-inksoft mt-3 mb-7 max-w-[46ch] mx-auto"
+    >
+      Explora el catálogo y encuentra el primer paso para tu piel.
+    </p>
+
+    <a
+      href="Skincare.html"
+      class="inline-block px-7 py-3 bg-ink text-cream rounded border border-ink text-[14.5px] transition hover:bg-transparent hover:text-ink hover:-translate-y-0.5"
+    >
+      Ver skincare
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- Footer -->
+
+<footer class="pt-12 pb-14">
+
+  <div
+    class="max-w-[1180px] mx-auto px-8 flex flex-wrap justify-between gap-8"
+  >
+
+    <a href="Home.html">
+
+      <img
+        src="imagenes/SeoulMarket.png"
+        alt="Seoul Market"
+        class="h-14 md:h-16 w-auto"
+      >
+
+    </a>
+
+
+    <div class="flex flex-wrap gap-16 text-sm text-inksoft">
+
+
+      <div>
+
+        <h4 class="text-[12.5px] tracking-wide mb-3.5">
+          TIENDA
+        </h4>
+
+        <ul class="space-y-2">
+
+          <li>
+            <a
+              href="Skincare.html"
+              class="hover:text-ink"
+            >
+              Skincare
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="makeup.html"
+              class="hover:text-ink"
+            >
+              Makeup
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="Clothing.html"
+              class="hover:text-ink"
+            >
+              Clothing
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div>
+
+        <h4 class="text-[12.5px] tracking-wide mb-3.5">
+          SEOUL MARKET
+        </h4>
+
+        <ul class="space-y-2">
+
+          <li>
+            <a
+              href="About.html"
+              class="hover:text-ink"
+            >
+              Sobre nosotros
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="blog.html"
+              class="hover:text-ink"
+            >
+              Blog de piel
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#"
+              class="hover:text-ink"
+            >
+              Contacto
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div>
+
+        <h4 class="text-[12.5px] tracking-wide mb-3.5">
+          AYUDA
+        </h4>
+
+        <ul class="space-y-2">
+
+          <li>
+            <a
+              href="#"
+              class="hover:text-ink"
+            >
+              Envíos
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#"
+              class="hover:text-ink"
+            >
+              Devoluciones
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#"
+              class="hover:text-ink"
+            >
+              Preguntas frecuentes
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="max-w-[1180px] mx-auto px-8 mt-12 pt-6 border-t border-line flex flex-wrap justify-between gap-2.5 text-[12.5px] text-inksoft"
+  >
+
+    <span>
+      © 2026 Seoul Market. Todos los derechos reservados.
+    </span>
+
+    <span>
+      Hecho con cuidado, inspirado en Seúl.
+    </span>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+
+/* ============================
+   MENÚ MÓVIL
+============================ */
+
+const t =
+  document.getElementById('menuToggle');
+
+const m =
+  document.getElementById('mobileNav');
+
+
+t.addEventListener(
+  'click',
+  () => {
+
+    const o =
+      m.classList.toggle('hidden');
+
+    m.classList.toggle(
+      'flex',
+      !o
+    );
+
+    t.setAttribute(
+      'aria-expanded',
+      !o
+    );
+
+  }
+);
+
+
+/* ============================
+   ANIMACIONES
+============================ */
+
+const io =
+  new IntersectionObserver(
+    es =>
+      es.forEach(e => {
+
+        if(e.isIntersecting){
+
+          e.target.classList.add('in');
+
+          io.unobserve(e.target);
+
+        }
+
+      }),
+    {
+      threshold:.15
+    }
+  );
+
+
+document
+  .querySelectorAll('.reveal')
+  .forEach(el => io.observe(el));
+
+
+/* ============================
+   MAPA
+============================ */
+
+
+/* Coordenadas de Seúl */
+
+const seoulLat = 37.5665;
+const seoulLng = 126.9780;
+
+
+/* Crear mapa */
+
+const map =
+  L.map('map').setView(
+    [seoulLat,seoulLng],
+    12
+  );
+
+
+/*
+  CORRECCIÓN:
+  Leaflet recalcula el tamaño del mapa
+  después de que la sección aparece.
+*/
+
+setTimeout(() => {
+
+  map.invalidateSize();
+
+}, 300);
+
+
+/* Capa del mapa */
+
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    maxZoom:19,
+    attribution:
+      '&copy; OpenStreetMap contributors'
+  }
+).addTo(map);
+
+
+/* Marcador inicial */
+
+let locationMarker =
+  L.marker(
+    [seoulLat,seoulLng]
+  ).addTo(map);
+
+
+locationMarker.bindPopup(
+  '<strong>Seoul Market</strong><br>Seúl, Corea del Sur'
+);
+
+
+/* Botón */
+
+const locationBtn =
+  document.getElementById(
+    'locationBtn'
+  );
+
+
+const locationStatus =
+  document.getElementById(
+    'locationStatus'
+  );
+
+
+/* ============================
+   GEOLOCALIZACIÓN
+============================ */
+
+locationBtn.addEventListener(
+  'click',
+  () => {
+
+
+    /* Comprobar navegador */
+
+    if(!navigator.geolocation){
+
+      locationStatus.textContent =
+        'Tu navegador no permite obtener la ubicación.';
+
+      return;
+
+    }
+
+
+    /* Estado del botón */
+
+    locationBtn.disabled = true;
+
+    locationBtn.classList.add(
+      'opacity-60',
+      'cursor-not-allowed'
+    );
+
+
+    locationStatus.textContent =
+      'Obteniendo tu ubicación...';
+
+
+    /* Solicitar ubicación */
+
+    navigator.geolocation.getCurrentPosition(
+
+      function(position){
+
+
+        /* Coordenadas */
+
+        const lat =
+          position.coords.latitude;
+
+        const lng =
+          position.coords.longitude;
+
+
+        /* Mover mapa */
+
+        map.setView(
+          [lat,lng],
+          16
+        );
+
+
+        /* Eliminar marcador anterior */
+
+        if(locationMarker){
+
+          map.removeLayer(
+            locationMarker
+          );
+
+        }
+
+
+        /* Crear marcador */
+
+        locationMarker =
+          L.marker(
+            [lat,lng]
+          ).addTo(map);
+
+
+        locationMarker.bindPopup(
+          '<strong>Tu ubicación</strong><br>Estás aquí.'
+        ).openPopup();
+
+
+        /* Mensaje */
+
+        locationStatus.textContent =
+          '📍 Tu ubicación se muestra en el mapa.';
+
+
+        /* Actualizar tamaño */
+
+        setTimeout(() => {
+
+          map.invalidateSize();
+
+        }, 100);
+
+
+        /* Activar botón */
+
+        locationBtn.disabled = false;
+
+        locationBtn.classList.remove(
+          'opacity-60',
+          'cursor-not-allowed'
+        );
+
+      },
+
+
+      function(error){
+
+
+        /* Activar botón */
+
+        locationBtn.disabled = false;
+
+        locationBtn.classList.remove(
+          'opacity-60',
+          'cursor-not-allowed'
+        );
+
+
+        /* Mensajes de error */
+
+        if(error.code === 1){
+
+          locationStatus.textContent =
+            'No permitiste el acceso a tu ubicación. Puedes habilitarlo desde los permisos del navegador.';
+
+        }
+
+        else if(error.code === 2){
+
+          locationStatus.textContent =
+            'No se pudo determinar tu ubicación. Intenta nuevamente.';
+
+        }
+
+        else if(error.code === 3){
+
+          locationStatus.textContent =
+            'La solicitud tardó demasiado. Intenta nuevamente.';
+
+        }
+
+        else{
+
+          locationStatus.textContent =
+            'No fue posible obtener tu ubicación.';
+
+        }
+
+      },
+
+
+      {
+        enableHighAccuracy:true,
+        timeout:10000,
+        maximumAge:0
+      }
+
+    );
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
