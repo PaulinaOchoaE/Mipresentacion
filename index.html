@@ -3,88 +3,286 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mi presentación</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/moon.css">
+  <title>Seoul Market · Fase 2 Diseño Multimedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
   <style>
-    .reveal h1, .reveal h2 { text-transform: none; }
-    .columnas { display: flex; gap: 40px; align-items: center; }
-    .columnas > div { flex: 1; }
-    .tarjeta {
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 20px;
+    :root {
+      --ink: #222222;
+      --muted: #6b6b6b;
+      --accent: #d9503a;
+      --paper: #ffffff;
+      --dark: #222222;
     }
+    .reveal { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); font-size: 24px; }
+    .reveal .slides section { text-align: left; padding: 0; }
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Inter', system-ui, sans-serif;
+      text-transform: none; color: var(--ink); letter-spacing: -0.01em; margin: 0;
+    }
+    .reveal a { color: var(--accent); }
+
+    /* Estructura base de cada diapositiva */
+    .s { box-sizing: border-box; width: 100%; height: 720px; padding: 52px 72px; display: flex; flex-direction: column; background: var(--paper); }
+    .s > h2 { font-weight: 300; font-size: 46px; text-transform: uppercase; padding-bottom: 14px; border-bottom: 1px solid #333; margin-bottom: 30px; }
+    .s > h2.normal { text-transform: none; }
+    .cuerpo { flex: 1; display: flex; gap: 44px; align-items: center; min-height: 0; }
+    .cuerpo .texto { flex: 1.1; font-size: 19px; line-height: 1.5; }
+    .cuerpo .texto p { margin: 0 0 14px; }
+    .cuerpo .texto b { font-weight: 600; }
+    .cuerpo .imagen { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 0; max-height: 100%; }
+    .cuerpo .imagen img { max-width: 100%; max-height: 520px; border: none; box-shadow: 0 6px 24px rgba(0,0,0,.12); margin: 0; }
+    .solo-imagen { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 0; }
+    .solo-imagen img { max-width: 100%; max-height: 520px; margin: 0; box-shadow: 0 6px 24px rgba(0,0,0,.14); }
+
+    /* Portada */
+    .portada { padding: 0; flex-direction: row; }
+    .portada .foto { flex: 0 0 38%; background-size: cover; background-position: center; }
+    .portada .info { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 72px; }
+    .portada h1 { font-size: 92px; font-weight: 300; line-height: 1.02; margin-bottom: 28px; }
+    .portada .linea { border-top: 1px solid #333; padding-top: 22px; font-size: 18px; letter-spacing: .14em; text-transform: uppercase; line-height: 2; }
+
+    /* Objetivo */
+    .lista { margin: 0 0 12px 0; padding: 0; list-style: none; }
+    .lista li { margin: 0 0 8px; padding-left: 20px; position: relative; font-size: 18px; }
+    .lista li::before { content: ""; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+    .etiqueta { font-weight: 600; margin: 18px 0 6px; font-size: 19px; }
+    .cuerpo .texto.objetivo { font-size: 18px; }
+
+    /* Código */
+    .oscura { background: var(--dark); flex-direction: row; padding: 0; }
+    .oscura .lado { flex: 0 0 24%; display: flex; flex-direction: column; justify-content: center; padding: 0 36px; color: #fff; }
+    .oscura .lado h2 { color: #fff; font-weight: 300; font-size: 38px; text-transform: uppercase; margin-bottom: 14px; }
+    .oscura .lado p { margin: 0; font-size: 20px; color: #ddd; }
+    .oscura .capturas { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 24px 40px 24px 0; }
+    .oscura .capturas img { width: 100%; max-height: 310px; object-fit: contain; object-position: center; margin: 0; border: 1px solid #444; background: #111; cursor: zoom-in; }
+    .pista { font-size: 13px; color: #aaa; margin-top: 18px !important; }
+
+    /* Barra de progreso en el color de acento */
+    .reveal .progress { color: var(--accent); height: 5px; }
+    .reveal .controls { color: var(--accent); }
+    .reveal .slide-number { color: var(--muted); background: transparent; font-size: 14px; }
   </style>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-      <!-- Portada -->
-      <section data-background-gradient="linear-gradient(135deg, #6a11cb, #2575fc)">
-        <h1>Título de mi presentación</h1>
-        <h3>Subtítulo o tema</h3>
-        <p><small>Paulina Ochoa · Octubre 2026</small></p>
-      </section>
-
-      <!-- Puntos que aparecen uno por uno -->
+      <!-- 1. Portada -->
       <section>
-        <h2>Agenda</h2>
-        <ul>
-          <li class="fragment">Introducción</li>
-          <li class="fragment">Desarrollo</li>
-          <li class="fragment">Resultados</li>
-          <li class="fragment">Conclusiones</li>
-        </ul>
-      </section>
-
-      <!-- Dos columnas -->
-      <section>
-        <h2>Comparación</h2>
-        <div class="columnas">
-          <div class="tarjeta">
-            <h3>Antes</h3>
-            <p>Describe la situación inicial.</p>
-          </div>
-          <div class="tarjeta">
-            <h3>Después</h3>
-            <p>Describe el resultado.</p>
+        <div class="s portada">
+          <div class="foto" style="background-image:url('img/s01_1.webp')"></div>
+          <div class="info">
+            <h1>Seoul<br>Market</h1>
+            <div class="linea">
+              Danna Paulina Ochoa Espinoza<br>
+              3045581<br>
+              Universidad Tecmilenio
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Diapositiva con imagen -->
+      <!-- 2. User 1 -->
       <section>
-        <h2>Imagen</h2>
-        <img src="https://picsum.photos/600/300" alt="Imagen de ejemplo" style="border-radius:12px;">
-        <p><small>Pie de imagen</small></p>
+        <div class="s">
+          <h2 class="normal">User 1</h2>
+          <div class="solo-imagen"><img src="img/s02_1.webp" alt="Persona de usuario 1: Emilia Ramírez"></div>
+        </div>
       </section>
 
-      <!-- Cita -->
-      <section data-background-color="#1b1b2f">
-        <blockquote>
-          Escribe aquí una frase importante de tu presentación.
-        </blockquote>
+      <!-- 3. User 2 -->
+      <section>
+        <div class="s">
+          <h2 class="normal">User 2</h2>
+          <div class="solo-imagen"><img src="img/s03_1.webp" alt="Persona de usuario 2: Camila Vázquez"></div>
+        </div>
       </section>
 
-      <!-- Cierre -->
-      <section data-background-gradient="linear-gradient(135deg, #11998e, #38ef7d)">
-        <h1>¡Gracias!</h1>
-        <p>correo@ejemplo.com</p>
-        <p><small>¿Preguntas?</small></p>
+      <!-- 4. Wireframes: Our Story -->
+      <section>
+        <div class="s">
+          <h2>Wireframes</h2>
+          <div class="cuerpo">
+            <div class="texto">
+              <p><b>Sección "Our Story":</b> imagen a la izquierda (placeholder) con foto de marca, equipo o producto que transmita autenticidad. A la derecha, el título "Our Story" con un párrafo corto contando el origen de la marca (por qué venden productos coreanos, tu propuesta de valor), tres checkmarks con datos clave ("100% Origen directo", "Artesanos independientes", "Envíos internacionales") y un badge con el año de fundación ("2019 Established") que genera confianza y credibilidad.</p>
+              <p><b>Barra de anuncio (franja negra arriba de todo):</b> un mensaje corto y llamativo, por ejemplo "Envío gratis en compras mayores a $75", que incentiva la compra desde que el usuario entra al sitio.</p>
+            </div>
+            <div class="imagen"><img src="img/s04_1.webp" alt="Wireframe de la sección Our Story"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Wireframes: Header, Hero, Categorías -->
+      <section>
+        <div class="s">
+          <h2>Wireframes</h2>
+          <div class="cuerpo">
+            <div class="texto">
+              <p><b>Header (barra superior):</b> logo de la marca a la izquierda, menú de navegación al centro (Skincare, Ropa, Maquillaje, Nosotros) y el carrito de compras a la derecha con el número de productos.</p>
+              <p><b>Hero (sección principal):</b> un título grande con la propuesta de valor de la tienda, un subtítulo explicando qué se ofrece, dos botones de acción ("Comprar ahora" y "Nuestra historia"), tres datos de confianza (productos, clientes, año de fundación) y una imagen grande al lado derecho para mostrar producto o estilo de vida.</p>
+              <p><b>Shop by Category:</b> tres tarjetas grandes, una por cada categoría de producto (Skincare, Ropa, Maquillaje), con imagen, nombre y flecha para navegar directo a esa sección.</p>
+            </div>
+            <div class="imagen"><img src="img/s05_1.webp" alt="Wireframe de header, hero y categorías"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Wireframes: Filtros y grid -->
+      <section>
+        <div class="s">
+          <h2>Wireframes</h2>
+          <div class="cuerpo">
+            <div class="texto">
+              <p><b>Filtros:</b> en la esquina superior derecha, el usuario puede filtrar por "Todos", "Skincare", "Ropa" o "Maquillaje" sin salir de la página.</p>
+              <p><b>Grid de productos:</b> 6 tarjetas de producto en 2 filas x 3 columnas. Cada tarjeta incluye imagen, nombre del producto, precio y botón "Add to Cart" para comprar directamente sin entrar al detalle.</p>
+              <p><b>Barra de confianza:</b> franja negra debajo con 4 mensajes cortos tipo sello ("Auténtico coreano", "Selección curada", "Directo de Seúl", "Calidad premium") que refuerzan por qué comprar en esta tienda.</p>
+            </div>
+            <div class="imagen"><img src="img/s06_1.webp" alt="Wireframe de filtros y grid de productos"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Wireframes: Newsletter y footer -->
+      <section>
+        <div class="s">
+          <h2>Wireframes</h2>
+          <div class="cuerpo">
+            <div class="texto" style="font-size:17px">
+              <p><b>Barra de confianza (franja negra superior):</b> repite los 4 sellos de garantía ("Auténtico coreano", "Selección curada", "Directo de Seúl", "Calidad premium"); aparece varias veces en la página para reforzar la confianza en distintos puntos del recorrido del usuario.</p>
+              <p><b>Stay Connected (Newsletter):</b> título y texto invitando a suscribirse, un campo para ingresar el correo y un botón "Subscribe" en color de acento. Sirve para captar leads y poder enviar promociones o novedades después.</p>
+              <p><b>Footer (pie de página):</b> dividido en 4 columnas:</p>
+              <ul class="lista">
+                <li>Logo de la marca + descripción breve de qué es la tienda.</li>
+                <li><b>Shop:</b> enlaces directos a las categorías de producto.</li>
+                <li><b>Company:</b> enlaces a "Nuestra historia", "Los artesanos", "Blog", "Prensa".</li>
+                <li><b>Support:</b> enlaces a "FAQ y envíos", "Devoluciones y cambios", "Tiendas físicas", "Contacto".</li>
+              </ul>
+              <p>Al final, una línea con el copyright y los íconos de redes sociales.</p>
+            </div>
+            <div class="imagen"><img src="img/s07_1.webp" alt="Wireframe de newsletter y footer"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. Objetivo -->
+      <section>
+        <div class="s">
+          <h2 class="normal">Objetivo</h2>
+          <div class="cuerpo">
+            <div class="texto objetivo">
+              <p>Vender productos coreanos orgánicos de skincare, ropa y maquillaje a mujeres en México, ofreciendo una experiencia de compra confiable enfocada en el autocuidado real.</p>
+              <div class="etiqueta">¿Qué debe lograr la plataforma?</div>
+              <ul class="lista">
+                <li>Facilitar el descubrimiento de productos por categoría.</li>
+                <li>Generar confianza mostrando origen e ingredientes orgánicos.</li>
+                <li>Simplificar la compra de principio a fin.</li>
+                <li>Fidelizar con newsletter y contenido de autocuidado.</li>
+              </ul>
+              <div class="etiqueta">El diferenciador</div>
+              <p>Belleza orgánica coreana pensada para el bienestar real de la mujer: ingredientes naturales, transparencia total en cada producto, y una propuesta de autocuidado consciente, no solo moda pasajera.</p>
+            </div>
+            <div class="imagen"><img src="img/s08_1.webp" alt="Productos de skincare coreano" style="max-height:540px"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. Código: index.html -->
+      <section>
+        <div class="s oscura">
+          <div class="lado">
+            <h2>Código</h2>
+            <p>Index.html</p>
+            <p class="pista">Haz clic en una captura para verla en grande.</p>
+          </div>
+          <div class="capturas">
+            <img src="img/s09_1.webp" data-preview-image alt="Código de index.html, parte 1">
+            <img src="img/s09_2.webp" data-preview-image alt="Código de index.html, parte 2">
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. Código: style.css -->
+      <section>
+        <div class="s oscura">
+          <div class="lado">
+            <h2>Código</h2>
+            <p>Style.css</p>
+            <p class="pista">Haz clic en una captura para verla en grande.</p>
+          </div>
+          <div class="capturas">
+            <img src="img/s10_1.webp" data-preview-image alt="Código de style.css, parte 1">
+            <img src="img/s10_2.webp" data-preview-image alt="Código de style.css, parte 2">
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. Código: script.js -->
+      <section>
+        <div class="s oscura">
+          <div class="lado">
+            <h2>Código</h2>
+            <p>Script.js</p>
+            <p class="pista">Haz clic en una captura para verla en grande.</p>
+          </div>
+          <div class="capturas">
+            <img src="img/s11_1.webp" data-preview-image alt="Código de script.js, parte 1">
+            <img src="img/s11_2.webp" data-preview-image alt="Código de script.js, parte 2">
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. Seoul Market: hero -->
+      <section>
+        <div class="s">
+          <h2 class="normal">Seoul Market</h2>
+          <div class="solo-imagen"><img src="img/s12_1.webp" alt="Sitio Seoul Market: sección hero"></div>
+        </div>
+      </section>
+
+      <!-- 13. Seoul Market: categorías -->
+      <section>
+        <div class="s">
+          <h2 class="normal">Seoul Market</h2>
+          <div class="solo-imagen"><img src="img/s13_1.webp" alt="Sitio Seoul Market: categorías de producto"></div>
+        </div>
+      </section>
+
+      <!-- 14. Seoul Market: Our Story -->
+      <section>
+        <div class="s">
+          <h2 class="normal">Seoul Market</h2>
+          <div class="solo-imagen"><img src="img/s14_1.webp" alt="Sitio Seoul Market: Our Story"></div>
+        </div>
+      </section>
+
+      <!-- 15. Seoul Market: newsletter y footer -->
+      <section>
+        <div class="s">
+          <h2 class="normal">Seoul Market</h2>
+          <div class="solo-imagen"><img src="img/s15_1.webp" alt="Sitio Seoul Market: newsletter y footer"></div>
+        </div>
       </section>
 
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script>
     Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      center: false,
       hash: true,
+      slideNumber: 'c/t',
       transition: 'slide',
       controls: true,
-      progress: true
+      progress: true,
+      previewLinks: false
     });
   </script>
 </body>
