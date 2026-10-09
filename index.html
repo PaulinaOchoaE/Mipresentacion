@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Noto+Serif+KR:wght@400;600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
-
   <style>
     :root {
       --crema: #f6f1e9;
@@ -21,554 +20,101 @@
       --durazno: #ecd2bf;
       --noche: #2a2420;
     }
-
-    .reveal {
-      font-family: 'Source Sans 3', system-ui, sans-serif;
-      color: var(--tinta);
-      font-size: 24px;
+    .reveal { font-family: 'Source Sans 3', system-ui, sans-serif; color: var(--tinta); font-size: 24px; }
+    .reveal .slides section { text-align: left; padding: 0; }
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Fraunces', Georgia, serif; text-transform: none; color: var(--tinta);
+      letter-spacing: -0.015em; margin: 0; font-weight: 400;
     }
-
-    .reveal .slides section {
-      text-align: left;
-      padding: 0;
-    }
-
-    .reveal h1,
-    .reveal h2,
-    .reveal h3 {
-      font-family: 'Fraunces', Georgia, serif;
-      text-transform: none;
-      color: var(--tinta);
-      letter-spacing: -0.015em;
-      margin: 0;
-      font-weight: 400;
-    }
-
-    .reveal em {
-      font-style: italic;
-      color: var(--terra);
-    }
-
-    .reveal a {
-      color: var(--terra);
-    }
-
-    .reveal p {
-      margin: 0;
-    }
-
-    .kr {
-      font-family: 'Noto Serif KR', serif;
-    }
+    .reveal em { font-style: italic; color: var(--terra); }
+    .reveal a { color: var(--terra); }
+    .reveal p { margin: 0; }
+    .kr { font-family: 'Noto Serif KR', serif; }
 
     /* ---------- Base ---------- */
-    .s {
-      position: relative;
-      box-sizing: border-box;
-      width: 100%;
-      height: 720px;
-      padding: 54px 84px 60px;
-      display: flex;
-      flex-direction: column;
-      background: var(--crema);
-      overflow: hidden;
-    }
-
-    .s::after {
-      content: "Seoul Market  ·  Universidad Tecmilenio";
-      position: absolute;
-      left: 84px;
-      bottom: 24px;
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--suave);
-      opacity: .75;
-    }
-
-    .kicker {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 13px;
-      letter-spacing: .26em;
-      text-transform: uppercase;
-      color: var(--terra);
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .kicker::after {
-      content: "";
-      flex: 0 0 56px;
-      height: 1px;
-      background: var(--terra);
-      opacity: .6;
-    }
-
-    .kicker .kr {
-      letter-spacing: .1em;
-      font-weight: 400;
-    }
-
-    .s > h2 {
-      font-size: 56px;
-      line-height: 1.05;
-      margin-bottom: 26px;
-    }
-
-    .cuerpo {
-      flex: 1;
-      display: flex;
-      gap: 56px;
-      align-items: center;
-      min-height: 0;
-      padding-bottom: 14px;
-    }
-
-    .cuerpo .texto {
-      flex: 1.15;
-    }
-
-    .cuerpo .imagen {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 0;
-    }
-
-    .tarjeta-img {
-      border-radius: 22px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 18px 40px -18px rgba(70,45,25,.35),
-                  0 0 0 1px rgba(70,45,25,.06);
-      line-height: 0;
-    }
-
-    .tarjeta-img img {
-      max-width: 100%;
-      max-height: 470px;
-      margin: 0;
-      border: 0;
-      box-shadow: none;
-      display: block;
-    }
-
-    .solo {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 0;
-      padding-bottom: 14px;
-    }
-
-    .solo .tarjeta-img img {
-      max-height: 470px;
-      max-width: 1050px;
-    }
-
-    .chip {
-      display: inline-block;
-      padding: 5px 14px;
-      border: 1px solid var(--linea);
-      border-radius: 999px;
-      font-size: 13px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--suave);
-      background: rgba(255,255,255,.5);
-    }
-
-    .encabezado {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-    }
-
-    .encabezado .chip {
-      margin-bottom: 30px;
-    }
+    .s { position: relative; box-sizing: border-box; width: 100%; height: 720px; padding: 54px 84px 60px;
+         display: flex; flex-direction: column; background: var(--crema); overflow: hidden; }
+    .s::after { content: "Seoul Market  ·  Universidad Tecmilenio"; position: absolute; left: 84px; bottom: 24px;
+         font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--suave); opacity: .75; }
+    .kicker { display: flex; align-items: center; gap: 14px; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; color: var(--terra); font-weight: 600; margin-bottom: 10px; }
+    .kicker::after { content: ""; flex: 0 0 56px; height: 1px; background: var(--terra); opacity: .6; }
+    .kicker .kr { letter-spacing: .1em; font-weight: 400; }
+    .s > h2 { font-size: 56px; line-height: 1.05; margin-bottom: 26px; }
+    .cuerpo { flex: 1; display: flex; gap: 56px; align-items: center; min-height: 0; padding-bottom: 14px; }
+    .cuerpo .texto { flex: 1.15; }
+    .cuerpo .imagen { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 0; }
+    .tarjeta-img { border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 18px 40px -18px rgba(70,45,25,.35), 0 0 0 1px rgba(70,45,25,.06); line-height: 0; }
+    .tarjeta-img img { max-width: 100%; max-height: 470px; margin: 0; border: 0; box-shadow: none; display: block; }
+    .solo { flex: 1; display: flex; justify-content: center; align-items: center; min-height: 0; padding-bottom: 14px; }
+    .solo .tarjeta-img img { max-height: 470px; max-width: 1050px; }
+    .chip { display: inline-block; padding: 5px 14px; border: 1px solid var(--linea); border-radius: 999px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); background: rgba(255,255,255,.5); }
+    .encabezado { display: flex; align-items: flex-end; justify-content: space-between; }
+    .encabezado .chip { margin-bottom: 30px; }
 
     /* ---------- Portada ---------- */
-    .portada {
-      padding: 0;
-      flex-direction: row;
-      background: var(--crema);
-    }
-
-    .portada::after {
-      display: none;
-    }
-
-    .portada .arco {
-      position: relative;
-      flex: 0 0 40%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .portada .arco .foto {
-      width: 400px;
-      height: 600px;
-      border-radius: 200px 200px 24px 24px;
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 30px 60px -25px rgba(70,45,25,.45);
-    }
-
-    .portada .arco .sol {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: var(--durazno);
-      left: 48px;
-      bottom: 64px;
-      z-index: 0;
-    }
-
-    .portada .arco .foto {
-      position: relative;
-      z-index: 1;
-    }
-
-    .portada .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 84px 0 24px;
-    }
-
-    .portada .hangul {
-      font-family: 'Noto Serif KR', serif;
-      font-size: 26px;
-      letter-spacing: .5em;
-      color: var(--terra);
-      margin-bottom: 18px;
-    }
-
-    .portada h1 {
-      font-size: 118px;
-      line-height: .95;
-      margin-bottom: 30px;
-      font-weight: 300;
-    }
-
-    .portada h1 em {
-      font-weight: 300;
-    }
-
-    .portada .sub {
-      font-size: 15px;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      color: var(--suave);
-      margin-bottom: 30px;
-    }
-
-    .portada .autor {
-      border-top: 1px solid var(--linea);
-      padding-top: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .portada .autor b {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-size: 28px;
-    }
-
-    .portada .autor span {
-      font-size: 17px;
-      color: var(--suave);
-      letter-spacing: .08em;
-    }
+    .portada { padding: 0; flex-direction: row; background: var(--crema); }
+    .portada::after { display: none; }
+    .portada .arco { position: relative; flex: 0 0 40%; display: flex; align-items: center; justify-content: center; }
+    .portada .arco .foto { width: 400px; height: 600px; border-radius: 200px 200px 24px 24px; background-size: cover; background-position: center; box-shadow: 0 30px 60px -25px rgba(70,45,25,.45); }
+    .portada .arco .sol { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: var(--durazno); left: 48px; bottom: 64px; z-index: 0; }
+    .portada .arco .foto { position: relative; z-index: 1; }
+    .portada .info { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 84px 0 24px; }
+    .portada .hangul { font-family: 'Noto Serif KR', serif; font-size: 26px; letter-spacing: .5em; color: var(--terra); margin-bottom: 18px; }
+    .portada h1 { font-size: 118px; line-height: .95; margin-bottom: 30px; font-weight: 300; }
+    .portada h1 em { font-weight: 300; }
+    .portada .sub { font-size: 15px; letter-spacing: .28em; text-transform: uppercase; color: var(--suave); margin-bottom: 30px; }
+    .portada .autor { border-top: 1px solid var(--linea); padding-top: 22px; display: flex; flex-direction: column; gap: 4px; }
+    .portada .autor b { font-family: 'Fraunces', serif; font-weight: 400; font-size: 28px; }
+    .portada .autor span { font-size: 17px; color: var(--suave); letter-spacing: .08em; }
 
     /* ---------- Wireframes ---------- */
-    .item {
-      padding: 0 0 15px 22px;
-      margin-bottom: 15px;
-      border-left: 2px solid var(--durazno);
-    }
-
-    .item:last-child {
-      margin-bottom: 0;
-    }
-
-    .item .et {
-      display: block;
-      font-size: 13px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--terra);
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .item p {
-      font-size: 18.5px;
-      line-height: 1.5;
-      color: #3b332d;
-    }
-
-    .item.chico p {
-      font-size: 16.5px;
-      line-height: 1.42;
-    }
-
-    .item ul {
-      margin: 6px 0 0;
-      padding: 0;
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 22px;
-    }
-
-    .item li {
-      font-size: 15.5px;
-      line-height: 1.35;
-      color: #3b332d;
-      padding-left: 14px;
-      position: relative;
-    }
-
-    .item li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: .55em;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--terra);
-    }
-
-    .reveal .slides section.present .item {
-      animation: subir .7s cubic-bezier(.2,.7,.2,1) both;
-    }
-
-    .reveal .slides section.present .item:nth-child(2) {
-      animation-delay: .12s;
-    }
-
-    .reveal .slides section.present .item:nth-child(3) {
-      animation-delay: .24s;
-    }
-
-    .reveal .slides section.present .item:nth-child(4) {
-      animation-delay: .36s;
-    }
-
-    @keyframes subir {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
+    .item { padding: 0 0 15px 22px; margin-bottom: 15px; border-left: 2px solid var(--durazno); }
+    .item:last-child { margin-bottom: 0; }
+    .item .et { display: block; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--terra); font-weight: 600; margin-bottom: 5px; }
+    .item p { font-size: 18.5px; line-height: 1.5; color: #3b332d; }
+    .item.chico p { font-size: 16.5px; line-height: 1.42; }
+    .item ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+    .item li { font-size: 15.5px; line-height: 1.35; color: #3b332d; padding-left: 14px; position: relative; }
+    .item li::before { content: ""; position: absolute; left: 0; top: .55em; width: 5px; height: 5px; border-radius: 50%; background: var(--terra); }
+    .reveal .slides section.present .item { animation: subir .7s cubic-bezier(.2,.7,.2,1) both; }
+    .reveal .slides section.present .item:nth-child(2) { animation-delay: .12s; }
+    .reveal .slides section.present .item:nth-child(3) { animation-delay: .24s; }
+    .reveal .slides section.present .item:nth-child(4) { animation-delay: .36s; }
+    @keyframes subir { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
     /* ---------- Objetivo ---------- */
-    .frase {
-      font-family: 'Fraunces', serif;
-      font-size: 23px;
-      line-height: 1.34;
-      font-weight: 300;
-      margin-bottom: 32px;
-    }
-
-    .logros {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .logro {
-      background: #fff;
-      border-radius: 16px;
-      padding: 14px 16px;
-      box-shadow: 0 0 0 1px rgba(70,45,25,.07);
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .logro b {
-      font-family: 'Fraunces', serif;
-      font-weight: 300;
-      font-size: 26px;
-      color: var(--terra);
-      line-height: 1;
-    }
-
-    .logro span {
-      font-size: 15.5px;
-      line-height: 1.32;
-    }
-
-    .etiqueta {
-      font-size: 13px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--terra);
-      font-weight: 600;
-      margin: 0 0 10px;
-    }
-
-    .dif {
-      background: var(--durazno);
-      border-radius: 18px;
-      padding: 16px 20px;
-      font-size: 16px;
-      line-height: 1.42;
-    }
-
-    .dif .etiqueta {
-      margin-bottom: 6px;
-      color: #9a4a2c;
-    }
-
-    .arco-img {
-      border-radius: 240px 240px 22px 22px;
-      overflow: hidden;
-      line-height: 0;
-      box-shadow: 0 24px 50px -22px rgba(70,45,25,.5);
-    }
-
-    .arco-img img {
-      height: 500px;
-      width: auto;
-      max-width: 100%;
-      object-fit: cover;
-      margin: 0;
-      border: 0;
-      box-shadow: none;
-      display: block;
-    }
+    .frase { font-family: 'Fraunces', serif; font-size: 23px; line-height: 1.34; font-weight: 300; margin-bottom: 32px; }
+    .logros { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .logro { background: #fff; border-radius: 16px; padding: 14px 16px 14px 16px; box-shadow: 0 0 0 1px rgba(70,45,25,.07); display: flex; gap: 12px; align-items: flex-start; }
+    .logro b { font-family: 'Fraunces', serif; font-weight: 300; font-size: 26px; color: var(--terra); line-height: 1; }
+    .logro span { font-size: 15.5px; line-height: 1.32; }
+    .etiqueta { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--terra); font-weight: 600; margin: 0 0 10px; }
+    .dif { background: var(--durazno); border-radius: 18px; padding: 16px 20px; font-size: 16px; line-height: 1.42; }
+    .dif .etiqueta { margin-bottom: 6px; color: #9a4a2c; }
+    .arco-img { border-radius: 240px 240px 22px 22px; overflow: hidden; line-height: 0; box-shadow: 0 24px 50px -22px rgba(70,45,25,.5); }
+    .arco-img img { height: 500px; width: auto; max-width: 100%; object-fit: cover; margin: 0; border: 0; box-shadow: none; display: block; }
 
     /* ---------- Oscuras (código / base de datos) ---------- */
-    .oscura {
-      flex-direction: row;
-      padding: 0;
-      background: var(--noche);
-    }
-
-    .oscura::after {
-      color: #b9aa98;
-      left: 64px;
-    }
-
-    .oscura .lado {
-      flex: 0 0 27%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 44px 0 64px;
-      color: #f6f1e9;
-    }
-
-    .oscura .lado .kicker {
-      color: #e3a98c;
-    }
-
-    .oscura .lado .kicker::after {
-      background: #e3a98c;
-    }
-
-    .oscura .lado h2 {
-      color: #f6f1e9;
-      font-size: 52px;
-      margin-bottom: 14px;
-    }
-
-    .oscura .lado h2 em {
-      color: #e3a98c;
-    }
-
-    .oscura .lado .archivo {
-      display: inline-block;
-      align-self: flex-start;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: 17px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(246,241,233,.1);
-      color: #f6f1e9;
-      margin-bottom: 14px;
-    }
-
-    .oscura .lado .sub {
-      font-size: 18px;
-      line-height: 1.4;
-      color: #d9cbbb;
-    }
-
-    .pista {
-      font-size: 13px;
-      color: #a89a89;
-      margin-top: 22px;
-      letter-spacing: .04em;
-    }
-
-    .oscura .capturas {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 14px;
-      padding: 36px 52px 52px 0;
-    }
-
-    .oscura .capturas img {
-      width: 100%;
-      max-height: 292px;
-      object-fit: contain;
-      margin: 0;
-      border: 0;
-      border-radius: 14px;
-      background: #14110f;
-      box-shadow: 0 14px 30px -14px rgba(0,0,0,.7),
-                  0 0 0 1px rgba(255,255,255,.07);
-      cursor: zoom-in;
-    }
-
-    .oscura .capturas.una img {
-      max-height: 600px;
-    }
+    .oscura { flex-direction: row; padding: 0; background: var(--noche); }
+    .oscura::after { color: #b9aa98; left: 64px; }
+    .oscura .lado { flex: 0 0 27%; display: flex; flex-direction: column; justify-content: center; padding: 0 44px 0 64px; color: #f6f1e9; }
+    .oscura .lado .kicker { color: #e3a98c; }
+    .oscura .lado .kicker::after { background: #e3a98c; }
+    .oscura .lado h2 { color: #f6f1e9; font-size: 52px; margin-bottom: 14px; }
+    .oscura .lado h2 em { color: #e3a98c; }
+    .oscura .lado .archivo { display: inline-block; align-self: flex-start; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 17px; padding: 6px 14px; border-radius: 999px; background: rgba(246,241,233,.1); color: #f6f1e9; margin-bottom: 14px; }
+    .oscura .lado .sub { font-size: 18px; line-height: 1.4; color: #d9cbbb; }
+    .pista { font-size: 13px; color: #a89a89; margin-top: 22px; letter-spacing: .04em; }
+    .oscura .capturas { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 36px 52px 52px 0; }
+    .oscura .capturas img { width: 100%; max-height: 292px; object-fit: contain; margin: 0; border: 0; border-radius: 14px; background: #14110f; box-shadow: 0 14px 30px -14px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.07); cursor: zoom-in; }
+    .oscura .capturas.una img { max-height: 600px; }
 
     /* ---------- Controles ---------- */
-    .reveal .progress {
-      color: var(--terra);
-      height: 4px;
-    }
-
-    .reveal .controls {
-      color: var(--terra);
-    }
-
-    .reveal .slide-number {
-      color: var(--suave);
-      background: transparent;
-      font-size: 13px;
-      letter-spacing: .15em;
-      right: 118px;
-      bottom: 26px;
-      font-family: 'Source Sans 3', sans-serif;
-    }
+    .reveal .progress { color: var(--terra); height: 4px; }
+    .reveal .controls { color: var(--terra); }
+    .reveal .slide-number { color: var(--suave); background: transparent; font-size: 13px; letter-spacing: .15em; right: 118px; bottom: 26px; font-family: 'Source Sans 3', sans-serif; }
   </style>
 </head>
-
 <body>
   <div class="reveal">
     <div class="slides">
@@ -576,10 +122,7 @@
       <!-- 1. Portada -->
       <section data-background-color="#f6f1e9">
         <div class="s portada">
-          <div class="arco">
-            <div class="sol"></div>
-            <div class="foto" style="background-image:url('img/s01_1.webp')"></div>
-          </div>
+          <div class="arco"><div class="sol"></div><div class="foto" style="background-image:url('img/s01_1.webp')"></div></div>
           <div class="info">
             <div class="hangul">서울마켓</div>
             <h1>Seoul<br><em>Market</em></h1>
@@ -593,29 +136,21 @@
         </div>
       </section>
 
-      <!-- 2. User 1 -->
+      <!-- 2. User <em>1</em> -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>02 · Usuarios</span></div>
           <h2>User <em>1</em></h2>
-          <div class="solo">
-            <div class="tarjeta-img">
-              <img src="img/s02_1.webp" alt="Persona de usuario 1: Emilia Ramírez">
-            </div>
-          </div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/s02_1.webp" alt="Persona de usuario 1: Emilia Ramírez"></div></div>
         </div>
       </section>
 
-      <!-- 3. User 2 -->
+      <!-- 3. User <em>2</em> -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>03 · Usuarios</span></div>
           <h2>User <em>2</em></h2>
-          <div class="solo">
-            <div class="tarjeta-img">
-              <img src="img/s03_1.webp" alt="Persona de usuario 2: Camila Vázquez">
-            </div>
-          </div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/s03_1.webp" alt="Persona de usuario 2: Camila Vázquez"></div></div>
         </div>
       </section>
 
@@ -626,20 +161,10 @@
           <h2>Wire<em>frames</em></h2>
           <div class="cuerpo">
             <div class="texto">
-              <div class="item">
-                <span class="et">Sección "Our Story"</span>
-                <p>Imagen a la izquierda con una foto de marca, equipo o producto que transmita autenticidad. A la derecha, el título "Our Story" con un párrafo corto sobre el origen de la marca, su propuesta de valor, tres datos clave y un distintivo con el año de fundación para generar confianza.</p>
-              </div>
-              <div class="item">
-                <span class="et">Barra de anuncio</span>
-                <p>Una franja negra en la parte superior puede mostrar un mensaje como "Envío gratis en compras mayores a $75", incentivando la compra desde que el usuario entra al sitio.</p>
-              </div>
+              <div class="item "><span class="et">Sección "Our Story"</span><p>imagen a la izquierda (placeholder) con foto de marca, equipo o producto que transmita autenticidad. A la derecha, el título "Our Story" con un párrafo corto contando el origen de la marca (por qué venden productos coreanos, tu propuesta de valor), tres checkmarks con datos clave ("100% Origen directo", "Artesanos independientes", "Envíos internacionales") y un badge con el año de fundación ("2019 Established") que genera confianza y credibilidad.</p></div>
+              <div class="item "><span class="et">Barra de anuncio (franja negra arriba de todo)</span><p>un mensaje corto y llamativo, por ejemplo "Envío gratis en compras mayores a $75", que incentiva la compra desde que el usuario entra al sitio.</p></div>
             </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s04_1.webp" alt="Wireframe de la sección Our Story">
-              </div>
-            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/s04_1.webp" alt="Wireframe de la sección Our Story"></div></div>
           </div>
         </div>
       </section>
@@ -651,24 +176,11 @@
           <h2>Wire<em>frames</em></h2>
           <div class="cuerpo">
             <div class="texto">
-              <div class="item">
-                <span class="et">Header (barra superior)</span>
-                <p>Logo de la marca a la izquierda, menú de navegación al centro —Skincare, Ropa, Maquillaje y Nosotros— y el carrito de compras a la derecha.</p>
-              </div>
-              <div class="item">
-                <span class="et">Hero (sección principal)</span>
-                <p>Un título grande con la propuesta de valor, un subtítulo, botones de acción, datos de confianza y una imagen destacada que muestra el estilo de vida de la marca.</p>
-              </div>
-              <div class="item">
-                <span class="et">Shop by Category</span>
-                <p>Tres tarjetas grandes para Skincare, Ropa y Maquillaje, con imagen, nombre y acceso directo a cada sección.</p>
-              </div>
+              <div class="item "><span class="et">Header (barra superior)</span><p>logo de la marca a la izquierda, menú de navegación al centro (Skincare, Ropa, Maquillaje, Nosotros) y el carrito de compras a la derecha con el número de productos.</p></div>
+              <div class="item "><span class="et">Hero (sección principal)</span><p>un título grande con la propuesta de valor de la tienda, un subtítulo explicando qué se ofrece, dos botones de acción ("Comprar ahora" y "Nuestra historia"), tres datos de confianza (productos, clientes, año de fundación) y una imagen grande al lado derecho para mostrar producto o estilo de vida.</p></div>
+              <div class="item "><span class="et">Shop by Category</span><p>tres tarjetas grandes, una por cada categoría de producto (Skincare, Ropa, Maquillaje), con imagen, nombre y flecha para navegar directo a esa sección.</p></div>
             </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s05_1.webp" alt="Wireframe de header, hero y categorías">
-              </div>
-            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/s05_1.webp" alt="Wireframe de header, hero y categorías"></div></div>
           </div>
         </div>
       </section>
@@ -680,24 +192,11 @@
           <h2>Wire<em>frames</em></h2>
           <div class="cuerpo">
             <div class="texto">
-              <div class="item">
-                <span class="et">Filtros</span>
-                <p>Permiten filtrar los productos por categorías como Todos, Skincare, Ropa o Maquillaje sin salir de la página.</p>
-              </div>
-              <div class="item">
-                <span class="et">Grid de productos</span>
-                <p>Seis tarjetas distribuidas en dos filas y tres columnas. Cada una incluye imagen, nombre, precio y botón para agregar al carrito.</p>
-              </div>
-              <div class="item">
-                <span class="et">Barra de confianza</span>
-                <p>Una franja con mensajes como "Auténtico coreano", "Selección curada", "Directo de Seúl" y "Calidad premium" refuerza la propuesta de la tienda.</p>
-              </div>
+              <div class="item "><span class="et">Filtros</span><p>en la esquina superior derecha, el usuario puede filtrar por "Todos", "Skincare", "Ropa" o "Maquillaje" sin salir de la página.</p></div>
+              <div class="item "><span class="et">Grid de productos</span><p>6 tarjetas de producto en 2 filas x 3 columnas. Cada tarjeta incluye imagen, nombre del producto, precio y botón "Add to Cart" para comprar directamente sin entrar al detalle.</p></div>
+              <div class="item "><span class="et">Barra de confianza</span><p>franja negra debajo con 4 mensajes cortos tipo sello ("Auténtico coreano", "Selección curada", "Directo de Seúl", "Calidad premium") que refuerzan por qué comprar en esta tienda.</p></div>
             </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s06_1.webp" alt="Wireframe de filtros y grid de productos">
-              </div>
-            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/s06_1.webp" alt="Wireframe de filtros y grid de productos"></div></div>
           </div>
         </div>
       </section>
@@ -709,31 +208,11 @@
           <h2>Wire<em>frames</em></h2>
           <div class="cuerpo">
             <div class="texto">
-              <div class="item chico">
-                <span class="et">Barra de confianza</span>
-                <p>Repite mensajes de garantía y calidad en diferentes puntos del sitio para reforzar la confianza durante el recorrido del usuario.</p>
-              </div>
-              <div class="item chico">
-                <span class="et">Stay Connected (Newsletter)</span>
-                <p>Incluye un título, texto, campo para ingresar el correo y botón de suscripción. Permite compartir promociones y novedades.</p>
-              </div>
-              <div class="item chico">
-                <span class="et">Footer (pie de página)</span>
-                <p>Se divide en columnas con la descripción de la marca y enlaces a las categorías, la empresa, el blog y el soporte.</p>
-                <ul>
-                  <li>Logo y descripción de la tienda.</li>
-                  <li>Enlaces a productos.</li>
-                  <li>Información de la empresa.</li>
-                  <li>Contacto y soporte.</li>
-                </ul>
-                <p style="margin-top:8px">Al final se muestra el copyright y los íconos de redes sociales.</p>
-              </div>
+              <div class="item chico"><span class="et">Barra de confianza (franja negra superior)</span><p>repite los 4 sellos de garantía ("Auténtico coreano", "Selección curada", "Directo de Seúl", "Calidad premium"); aparece varias veces en la página para reforzar la confianza en distintos puntos del recorrido del usuario.</p></div>
+              <div class="item chico"><span class="et">Stay Connected (Newsletter)</span><p>título y texto invitando a suscribirse, un campo para ingresar el correo y un botón "Subscribe" en color de acento. Sirve para captar leads y poder enviar promociones o novedades después.</p></div>
+              <div class="item chico"><span class="et">Footer (pie de página)</span><p>dividido en 4 columnas:</p><ul><li>Logo de la marca + descripción breve de qué es la tienda.</li><li><b>Shop:</b> enlaces directos a las categorías de producto.</li><li><b>Company:</b> enlaces a "Nuestra historia", "Los artesanos", "Blog", "Prensa".</li><li><b>Support:</b> enlaces a "FAQ y envíos", "Devoluciones y cambios", "Tiendas físicas", "Contacto".</li></ul><p style="margin-top:8px">Al final, una línea con el copyright y los íconos de redes sociales.</p></div>
             </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s07_1.webp" alt="Wireframe de newsletter y footer">
-              </div>
-            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/s07_1.webp" alt="Wireframe de newsletter y footer"></div></div>
           </div>
         </div>
       </section>
@@ -745,35 +224,32 @@
           <h2>Obje<em>tivo</em></h2>
           <div class="cuerpo">
             <div class="texto">
-              <p class="frase">Vender productos coreanos de skincare, ropa y maquillaje a mujeres en México, ofreciendo una experiencia de compra confiable enfocada en el autocuidado real.</p>
+              <p class="frase">Vender productos coreanos orgánicos de skincare, ropa y maquillaje a mujeres en México, ofreciendo una experiencia de compra confiable enfocada en el autocuidado real.</p>
               <div class="etiqueta">¿Qué debe lograr la plataforma?</div>
               <div class="logros">
                 <div class="logro"><b>01</b><span>Facilitar el descubrimiento de productos por categoría.</span></div>
-                <div class="logro"><b>02</b><span>Generar confianza mostrando el origen y los ingredientes.</span></div>
+                <div class="logro"><b>02</b><span>Generar confianza mostrando origen e ingredientes orgánicos.</span></div>
                 <div class="logro"><b>03</b><span>Simplificar la compra de principio a fin.</span></div>
                 <div class="logro"><b>04</b><span>Fidelizar con newsletter y contenido de autocuidado.</span></div>
               </div>
               <div class="dif">
                 <div class="etiqueta">El diferenciador</div>
-                Belleza coreana pensada para el bienestar real de la mujer: ingredientes naturales, transparencia en cada producto y una propuesta de autocuidado consciente.
+                Belleza orgánica coreana pensada para el bienestar real de la mujer: ingredientes naturales, transparencia total en cada producto, y una propuesta de autocuidado consciente, no solo moda pasajera.
               </div>
             </div>
-            <div class="imagen">
-              <div class="arco-img">
-                <img src="img/s08_1.webp" alt="Productos de skincare coreano">
-              </div>
-            </div>
+            <div class="imagen"><div class="arco-img"><img src="img/s08_1.webp" alt="Productos de skincare coreano"></div></div>
           </div>
         </div>
       </section>
 
-      <!-- 9. Código · index.html -->
+      <!-- 9. <em>Código</em> · index.html -->
       <section data-background-color="#2a2420">
         <div class="s oscura">
           <div class="lado">
             <div class="kicker"><span class="kr">서울</span><span>09 · Código</span></div>
             <h2><em>Código</em></h2>
             <span class="archivo">index.html</span>
+            
             <p class="pista">Haz clic en la captura para verla en grande.</p>
           </div>
           <div class="capturas">
@@ -783,13 +259,14 @@
         </div>
       </section>
 
-      <!-- 10. Código · style.css -->
+      <!-- 10. <em>Código</em> · style.css -->
       <section data-background-color="#2a2420">
         <div class="s oscura">
           <div class="lado">
             <div class="kicker"><span class="kr">서울</span><span>10 · Código</span></div>
             <h2><em>Código</em></h2>
             <span class="archivo">style.css</span>
+            
             <p class="pista">Haz clic en la captura para verla en grande.</p>
           </div>
           <div class="capturas">
@@ -799,13 +276,14 @@
         </div>
       </section>
 
-      <!-- 11. Código · script.js -->
+      <!-- 11. <em>Código</em> · script.js -->
       <section data-background-color="#2a2420">
         <div class="s oscura">
           <div class="lado">
             <div class="kicker"><span class="kr">서울</span><span>11 · Código</span></div>
             <h2><em>Código</em></h2>
             <span class="archivo">script.js</span>
+            
             <p class="pista">Haz clic en la captura para verla en grande.</p>
           </div>
           <div class="capturas">
@@ -815,7 +293,7 @@
         </div>
       </section>
 
-      <!-- 12. Base de datos · MySQL Workbench -->
+      <!-- 12. Base de <em>datos</em> · MySQL Workbench -->
       <section data-background-color="#2a2420">
         <div class="s oscura">
           <div class="lado">
@@ -831,14 +309,14 @@
         </div>
       </section>
 
-      <!-- 13. Base de datos · MySQL Workbench -->
+      <!-- 13. Base de <em>datos</em> · MySQL Workbench -->
       <section data-background-color="#2a2420">
         <div class="s oscura">
           <div class="lado">
             <div class="kicker"><span class="kr">서울</span><span>13 · Datos</span></div>
             <h2>Base de <em>datos</em></h2>
             <span class="archivo">MySQL Workbench</span>
-            <p class="sub">Inserción de productos de Skincare y consulta de los datos.</p>
+            <p class="sub">Inserción de los productos de Skincare y consulta de los datos.</p>
             <p class="pista">Haz clic en la captura para verla en grande.</p>
           </div>
           <div class="capturas una">
@@ -847,7 +325,7 @@
         </div>
       </section>
 
-      <!-- 14. Base de datos · MySQL Workbench -->
+      <!-- 14. Base de <em>datos</em> · MySQL Workbench -->
       <section data-background-color="#2a2420">
         <div class="s oscura">
           <div class="lado">
@@ -867,31 +345,8 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>15 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em> · Inicio</h2>
-            <span class="chip">Página de inicio</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Inspiración visual</span>
-                <p>La página de inicio toma referencias de YesStyle, SHEIN y Zara. Se combinan la presentación visual de productos, una navegación sencilla y una estética moderna para crear una tienda atractiva.</p>
-              </div>
-              <div class="item">
-                <span class="et">Organización</span>
-                <p>Incluye el encabezado con el menú, una sección principal que presenta la marca, accesos a las categorías y contenido que ayuda a descubrir los productos.</p>
-              </div>
-              <div class="item">
-                <span class="et">Objetivo</span>
-                <p>Dar una primera impresión clara y facilitar que el usuario encuentre skincare, maquillaje o ropa sin complicaciones.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/pag_1.webp" alt="Página Inicio de Seoul Market">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em> · Inicio</h2><span class="chip">Página de inicio</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/pag_1.webp" alt="Página Inicio de Seoul Market"></div></div>
         </div>
       </section>
 
@@ -899,31 +354,8 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>16 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em> · Skincare</h2>
-            <span class="chip">Skincare</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Inspiración visual</span>
-                <p>Esta sección toma como referencia principal a YesStyle, especialmente por la forma de presentar productos de belleza coreana en un catálogo visual y ordenado.</p>
-              </div>
-              <div class="item">
-                <span class="et">Presentación de productos</span>
-                <p>Los productos se muestran mediante tarjetas con imagen, nombre, marca o información básica y precio, para que sea sencillo comparar opciones.</p>
-              </div>
-              <div class="item">
-                <span class="et">Experiencia de usuario</span>
-                <p>La distribución busca que la información sea fácil de revisar y que el usuario pueda explorar los productos de cuidado de la piel de manera intuitiva.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/pag_2.webp" alt="Página Skincare de Seoul Market">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em> · Skincare</h2><span class="chip">Skincare</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/pag_2.webp" alt="Página Skincare de Seoul Market"></div></div>
         </div>
       </section>
 
@@ -931,31 +363,8 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>17 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em> · Makeup</h2>
-            <span class="chip">Makeup</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Inspiración visual</span>
-                <p>La página de maquillaje combina referencias de SHEIN y YesStyle: una presentación atractiva de los productos y una estructura de catálogo fácil de recorrer.</p>
-              </div>
-              <div class="item">
-                <span class="et">Diseño del catálogo</span>
-                <p>Las tarjetas permiten identificar visualmente cada producto y consultar su información principal, manteniendo una distribución consistente con el resto de la tienda.</p>
-              </div>
-              <div class="item">
-                <span class="et">Estilo</span>
-                <p>Se busca una apariencia actual, limpia y visual, donde las imágenes ayuden a conocer los productos antes de elegirlos.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/pag_3.webp" alt="Página Makeup de Seoul Market">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em> · Makeup</h2><span class="chip">Makeup</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/pag_3.webp" alt="Página Makeup de Seoul Market"></div></div>
         </div>
       </section>
 
@@ -963,31 +372,8 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>18 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em> · Clothing</h2>
-            <span class="chip">Clothing</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Inspiración visual</span>
-                <p>La sección de ropa toma como referencia a YesStyle, con una presentación de moda que prioriza las fotografías y una composición sencilla.</p>
-              </div>
-              <div class="item">
-                <span class="et">Información del producto</span>
-                <p>Los artículos se organizan en tarjetas visuales para que el usuario pueda recorrer las opciones y reconocer rápidamente cada prenda.</p>
-              </div>
-              <div class="item">
-                <span class="et">Consistencia</span>
-                <p>Se conserva la identidad visual de Seoul Market y la estructura del catálogo para que navegar entre categorías resulte familiar.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/pag_4.webp" alt="Página Clothing de Seoul Market">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em> · Clothing</h2><span class="chip">Clothing</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/pag_4.webp" alt="Página Clothing de Seoul Market"></div></div>
         </div>
       </section>
 
@@ -995,31 +381,8 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>19 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em></h2>
-            <span class="chip">Hero</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Primera impresión</span>
-                <p>La sección hero es el primer bloque visual importante que encuentra el usuario al entrar al sitio. Presenta la identidad y el estilo de la tienda.</p>
-              </div>
-              <div class="item">
-                <span class="et">Composición</span>
-                <p>Combina un mensaje principal con elementos visuales destacados para comunicar qué ofrece Seoul Market y captar la atención.</p>
-              </div>
-              <div class="item">
-                <span class="et">Función</span>
-                <p>Sirve como punto de entrada a la experiencia de compra y orienta al visitante hacia las categorías y productos.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s12_1.webp" alt="Sitio Seoul Market: sección hero">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Hero</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/s12_1.webp" alt="Sitio Seoul Market: sección hero"></div></div>
         </div>
       </section>
 
@@ -1027,31 +390,8 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>20 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em></h2>
-            <span class="chip">Categorías</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Organización por categorías</span>
-                <p>La sección agrupa la oferta de la tienda en tres áreas principales: skincare, maquillaje y ropa.</p>
-              </div>
-              <div class="item">
-                <span class="et">Navegación directa</span>
-                <p>Cada categoría utiliza un bloque visual que permite identificar su contenido y acceder a la sección correspondiente.</p>
-              </div>
-              <div class="item">
-                <span class="et">Beneficio para el usuario</span>
-                <p>Esta organización reduce pasos de navegación y facilita que cada persona encuentre el tipo de producto que está buscando.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s13_1.webp" alt="Sitio Seoul Market: categorías de producto">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Categorías</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/s13_1.webp" alt="Sitio Seoul Market: categorías de producto"></div></div>
         </div>
       </section>
 
@@ -1059,63 +399,17 @@
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>21 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em></h2>
-            <span class="chip">Our Story</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">¿Quiénes somos?</span>
-                <p>Esta sección explica qué es Seoul Market y qué tipo de productos reúne: opciones de skincare, maquillaje y moda inspiradas en tendencias coreanas.</p>
-              </div>
-              <div class="item">
-                <span class="et">Identidad de marca</span>
-                <p>El contenido comunica la propuesta de la tienda y su enfoque en el autocuidado, la belleza y la expresión personal.</p>
-              </div>
-              <div class="item">
-                <span class="et">Confianza</span>
-                <p>Dar contexto sobre la marca ayuda al visitante a comprender el propósito de la tienda y a conocerla antes de realizar una compra.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s14_1.webp" alt="Sitio Seoul Market: Our Story">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Our Story</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/s14_1.webp" alt="Sitio Seoul Market: Our Story"></div></div>
         </div>
       </section>
 
-      <!-- 22. Sitio Seoul Market: newsletter, blog y footer -->
+      <!-- 22. Sitio Seoul Market: newsletter y footer -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>22 · El sitio</span></div>
-          <div class="encabezado">
-            <h2>Seoul <em>Market</em></h2>
-            <span class="chip">Newsletter y footer</span>
-          </div>
-          <div class="cuerpo">
-            <div class="texto">
-              <div class="item">
-                <span class="et">Blog y novedades</span>
-                <p>El blog está pensado para compartir noticias, tendencias de belleza y moda coreana, reseñas de productos y recomendaciones que orienten a los usuarios.</p>
-              </div>
-              <div class="item">
-                <span class="et">Newsletter</span>
-                <p>El formulario invita a dejar un correo electrónico para recibir novedades, contenido y posibles promociones de la tienda.</p>
-              </div>
-              <div class="item">
-                <span class="et">Footer o pie de página</span>
-                <p>Reúne enlaces importantes como categorías, información de la empresa, blog, contacto y soporte, para que el usuario pueda encontrar opciones útiles al final de cada página.</p>
-              </div>
-            </div>
-            <div class="imagen">
-              <div class="tarjeta-img">
-                <img src="img/s15_1.webp" alt="Sitio Seoul Market: newsletter y footer">
-              </div>
-            </div>
-          </div>
+          <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Newsletter y footer</span></div>
+          <div class="solo"><div class="tarjeta-img"><img src="img/s15_1.webp" alt="Sitio Seoul Market: newsletter y footer"></div></div>
         </div>
       </section>
 
