@@ -109,6 +109,23 @@
     .oscura .capturas img { width: 100%; max-height: 292px; object-fit: contain; margin: 0; border: 0; border-radius: 14px; background: #14110f; box-shadow: 0 14px 30px -14px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.07); cursor: zoom-in; }
     .oscura .capturas.una img { max-height: 600px; }
 
+
+    /* ---------- Explicación de cada página ---------- */
+    .cuerpo.pagina { gap: 48px; }
+    .cuerpo.pagina .texto { flex: 0.95; }
+    .cuerpo.pagina .imagen { flex: 1.2; }
+    .cuerpo.pagina .tarjeta-img img { max-height: 440px; }
+    .item.medio { padding-bottom: 12px; margin-bottom: 12px; }
+    .item.medio p { font-size: 16px; line-height: 1.45; }
+    .item.medio .et { font-size: 12.5px; margin-bottom: 4px; }
+    .titulo-fila { display: flex; align-items: flex-end; justify-content: space-between; }
+    .titulo-fila .chip { margin-bottom: 26px; }
+    .panel-arco { width: 400px; height: 440px; border-radius: 200px 200px 24px 24px; background: var(--durazno); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 24px 50px -22px rgba(70,45,25,.5); }
+    .panel-arco .hg { font-family: 'Noto Serif KR', serif; font-size: 78px; color: var(--terra); letter-spacing: .08em; line-height: 1.1; }
+    .panel-arco .en { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 46px; color: var(--tinta); margin-top: 6px; }
+    .panel-arco .tags { margin-top: 22px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 0 40px; }
+    .panel-arco .tags span { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; border: 1px solid rgba(154,74,44,.45); color: #7a3a20; border-radius: 999px; padding: 4px 12px; background: rgba(255,255,255,.35); }
+
     /* ---------- Controles ---------- */
     .reveal .progress { color: var(--terra); height: 4px; }
     .reveal .controls { color: var(--terra); }
@@ -341,73 +358,133 @@
         </div>
       </section>
 
-      <!-- 15. Página Inicio de Seoul Market -->
+      <!-- 15. Home -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>15 · El sitio</span></div>
-          <div class="encabezado"><h2>Seoul <em>Market</em> · Inicio</h2><span class="chip">Página de inicio</span></div>
-          <div class="solo"><div class="tarjeta-img"><img src="img/pag_1.webp" alt="Página Inicio de Seoul Market"></div></div>
+          <div class="titulo-fila"><h2>Home <em>· Inicio</em></h2><span class="chip">Página principal</span></div>
+          <div class="cuerpo pagina">
+            <div class="texto">
+              <div class="item medio"><span class="et">Inspiración</span><p>Para la página de inicio me inspiré en YesStyle, Shein y Zara, porque me gusta mucho su estilo. De Zara tomé la imagen grande y el diseño limpio, que le dan un aspecto editorial y elegante. De YesStyle y Shein tomé la idea de dejar claro, desde el primer vistazo, que la tienda tiene muchas categorías.</p></div>
+              <div class="item medio"><span class="et">Estructura</span><p>Arriba va el logo de Seoul Market, el menú (Inicio, Skincare, Makeup, Clothing, About y Blog) y los íconos de búsqueda y de carrito. Debajo hay un carrusel de imágenes grandes, con puntos indicadores y flechas para cambiar de imagen.</p></div>
+              <div class="item medio"><span class="et">Datos de confianza</span><p>A la derecha puse tres cifras: 740+ productos, 50k+ clientes y una calificación de 4.9★. Así, quien entra entiende enseguida que es una tienda grande y confiable.</p></div>
+            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/pag_1.webp" alt="Página Inicio de Seoul Market"></div></div>
+          </div>
         </div>
       </section>
 
-      <!-- 16. Página Skincare de Seoul Market -->
+      <!-- 16. Skincare -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>16 · El sitio</span></div>
-          <div class="encabezado"><h2>Seoul <em>Market</em> · Skincare</h2><span class="chip">Skincare</span></div>
-          <div class="solo"><div class="tarjeta-img"><img src="img/pag_2.webp" alt="Página Skincare de Seoul Market"></div></div>
+          <div class="titulo-fila"><h2>Skin<em>care</em></h2><span class="chip">Cuidado de la piel</span></div>
+          <div class="cuerpo pagina">
+            <div class="texto">
+              <div class="item medio"><span class="et">Inspiración</span><p>Skincare está inspirada sobre todo en YesStyle, porque me gusta su estilo y la forma en que presenta los productos: fotos grandes, mucho espacio y poco texto, para que el producto sea el protagonista.</p></div>
+              <div class="item medio"><span class="et">Estructura</span><p>Un título, "Todos los productos", con una breve descripción, y una cuadrícula de tarjetas en tres columnas. Cada tarjeta muestra la foto del producto, la marca (Seoul Market) y el nombre, por ejemplo Ampolla Reparadora Snail, Cushion Calmante SPF50 y Mascarilla en Lámina Rice.</p></div>
+              <div class="item medio"><span class="et">Base de datos</span><p>Los productos de esta página se cargan desde nuestra base de datos MySQL, de la tabla productos, que guarda el nombre, la marca, la descripción, el precio, el stock y la imagen de cada uno.</p></div>
+            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/pag_2.webp" alt="Página Skincare de Seoul Market"></div></div>
+          </div>
         </div>
       </section>
 
-      <!-- 17. Página Makeup de Seoul Market -->
+      <!-- 17. Makeup -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>17 · El sitio</span></div>
-          <div class="encabezado"><h2>Seoul <em>Market</em> · Makeup</h2><span class="chip">Makeup</span></div>
-          <div class="solo"><div class="tarjeta-img"><img src="img/pag_3.webp" alt="Página Makeup de Seoul Market"></div></div>
+          <div class="titulo-fila"><h2>Make<em>up</em></h2><span class="chip">Maquillaje</span></div>
+          <div class="cuerpo pagina">
+            <div class="texto">
+              <div class="item medio"><span class="et">Inspiración</span><p>Makeup está inspirada en Shein y YesStyle, porque me gusta cómo organizan el maquillaje: cada producto en su propia tarjeta, fácil de recorrer y de comparar con los demás.</p></div>
+              <div class="item medio"><span class="et">Estructura</span><p>Conserva la misma cuadrícula de tres columnas que Skincare, para que navegar por toda la tienda se sienta coherente. Arriba del nombre de cada producto hay una etiqueta corta que lo resume: "Tono natural", "Cobertura ligera" o "Tonos neutros".</p></div>
+              <div class="item medio"><span class="et">Productos</span><p>Lip Tint Seoul, Cushion Glow y Shadow Palette Seoul, cada uno con una descripción de una línea, como "Color ligero con acabado hidratante" o "Piel uniforme con acabado luminoso".</p></div>
+            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/pag_3.webp" alt="Página Makeup de Seoul Market"></div></div>
+          </div>
         </div>
       </section>
 
-      <!-- 18. Página Clothing de Seoul Market -->
+      <!-- 18. Clothing -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>18 · El sitio</span></div>
-          <div class="encabezado"><h2>Seoul <em>Market</em> · Clothing</h2><span class="chip">Clothing</span></div>
-          <div class="solo"><div class="tarjeta-img"><img src="img/pag_4.webp" alt="Página Clothing de Seoul Market"></div></div>
+          <div class="titulo-fila"><h2>Clo<em>thing</em></h2><span class="chip">Ropa</span></div>
+          <div class="cuerpo pagina">
+            <div class="texto">
+              <div class="item medio"><span class="et">Inspiración</span><p>Clothing está inspirada en YesStyle, porque me gusta el estilo y la estructura de su página: moda coreana mostrada con fotos de modelos y un catálogo muy ordenado.</p></div>
+              <div class="item medio"><span class="et">Filtros</span><p>Arriba hay botones en forma de pastilla para filtrar por Todos, Tops, Pantalones y faldas, y Abrigos. El usuario cambia de categoría sin salir de la página y encuentra la prenda más rápido.</p></div>
+              <div class="item medio"><span class="et">Tarjetas</span><p>Cada prenda se muestra con una foto grande de modelo y una etiqueta con el material o la sensación de la tela, como "Tejido suave", "Lino mezcla" o "Algodón 100%".</p></div>
+            </div>
+            <div class="imagen"><div class="tarjeta-img"><img src="img/pag_4.webp" alt="Página Clothing de Seoul Market"></div></div>
+          </div>
         </div>
       </section>
 
-      <!-- 19. Sitio Seoul Market: sección hero -->
+      <!-- 19. About -->
       <section data-background-color="#f6f1e9">
         <div class="s">
           <div class="kicker"><span class="kr">서울</span><span>19 · El sitio</span></div>
+          <div class="titulo-fila"><h2>Ab<em>out</em></h2><span class="chip">Quiénes somos</span></div>
+          <div class="cuerpo pagina">
+            <div class="texto">
+              <div class="item medio"><span class="et">Qué es</span><p>La página About habla de lo que somos como empresa: qué es Seoul Market, por qué existe y qué la hace diferente de otras tiendas.</p></div>
+              <div class="item medio"><span class="et">Nuestra historia</span><p>Cuenta que Seoul Market nace del amor por Seúl, y que los productos se traen directo de mercados y vendedores coreanos para que lleguen auténticos.</p></div>
+              <div class="item medio"><span class="et">Confianza</span><p>Muestra datos que respaldan a la tienda: más de 50k clientes felices, 98% de reseñas positivas y más de 30 vendedores de Seúl.</p></div>
+            </div>
+            <div class="imagen"><div class="panel-arco"><div class="hg">소개</div><div class="en">About</div><div class="tags"><span>Empresa</span><span>Historia</span><span>Confianza</span></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 20. Blog -->
+      <section data-background-color="#f6f1e9">
+        <div class="s">
+          <div class="kicker"><span class="kr">서울</span><span>20 · El sitio</span></div>
+          <div class="titulo-fila"><h2><em>Blog</em></h2><span class="chip">Noticias y reseñas</span></div>
+          <div class="cuerpo pagina">
+            <div class="texto">
+              <div class="item medio"><span class="et">Qué es</span><p>El blog es la parte de noticias y reseñas: aquí se publican novedades de la tienda y opiniones sobre los productos y la moda.</p></div>
+              <div class="item medio"><span class="et">Contenido</span><p>Incluye reseñas de productos de skincare y maquillaje, y notas sobre moda y tendencias coreanas, para que la clienta conozca mejor lo que va a comprar.</p></div>
+              <div class="item medio"><span class="et">Para qué sirve</span><p>Da contenido de autocuidado y moda que mantiene a la clienta cerca de la marca, y cumple uno de los objetivos de la plataforma: fidelizar.</p></div>
+            </div>
+            <div class="imagen"><div class="panel-arco"><div class="hg">블로그</div><div class="en">Blog</div><div class="tags"><span>Noticias</span><span>Reseñas</span><span>Moda</span></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 21. Sitio Seoul Market: sección hero -->
+      <section data-background-color="#f6f1e9">
+        <div class="s">
+          <div class="kicker"><span class="kr">서울</span><span>21 · El sitio</span></div>
           <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Hero</span></div>
           <div class="solo"><div class="tarjeta-img"><img src="img/s12_1.webp" alt="Sitio Seoul Market: sección hero"></div></div>
         </div>
       </section>
 
-      <!-- 20. Sitio Seoul Market: categorías de producto -->
+      <!-- 22. Sitio Seoul Market: categorías de producto -->
       <section data-background-color="#f6f1e9">
         <div class="s">
-          <div class="kicker"><span class="kr">서울</span><span>20 · El sitio</span></div>
+          <div class="kicker"><span class="kr">서울</span><span>22 · El sitio</span></div>
           <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Categorías</span></div>
           <div class="solo"><div class="tarjeta-img"><img src="img/s13_1.webp" alt="Sitio Seoul Market: categorías de producto"></div></div>
         </div>
       </section>
 
-      <!-- 21. Sitio Seoul Market: Our Story -->
+      <!-- 23. Sitio Seoul Market: Our Story -->
       <section data-background-color="#f6f1e9">
         <div class="s">
-          <div class="kicker"><span class="kr">서울</span><span>21 · El sitio</span></div>
+          <div class="kicker"><span class="kr">서울</span><span>23 · El sitio</span></div>
           <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Our Story</span></div>
           <div class="solo"><div class="tarjeta-img"><img src="img/s14_1.webp" alt="Sitio Seoul Market: Our Story"></div></div>
         </div>
       </section>
 
-      <!-- 22. Sitio Seoul Market: newsletter y footer -->
+      <!-- 24. Sitio Seoul Market: newsletter y footer -->
       <section data-background-color="#f6f1e9">
         <div class="s">
-          <div class="kicker"><span class="kr">서울</span><span>22 · El sitio</span></div>
+          <div class="kicker"><span class="kr">서울</span><span>24 · El sitio</span></div>
           <div class="encabezado"><h2>Seoul <em>Market</em></h2><span class="chip">Newsletter y footer</span></div>
           <div class="solo"><div class="tarjeta-img"><img src="img/s15_1.webp" alt="Sitio Seoul Market: newsletter y footer"></div></div>
         </div>
